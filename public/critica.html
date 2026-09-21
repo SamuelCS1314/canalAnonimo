@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Enviar Crítica - Lobios </title>
+    <link rel="icon" type="image/png" href="css/images/icon.jpg">    
+    <link rel="stylesheet" href="css/critica.css">
+</head>
+
+<body>
+
+    <header class="cabecalho"> 
+        <div class="headerLogo">
+        <a class="logoBlack" href="index.html"><img src="css/images/logo.png" alt=""></a>
+    </div>
+     
+       <nav class="menu"> 
+           <a href="index.html"> Início    </a>
+           <a href="index.html#manifestacao"> Manifestações  </a>
+           <a href="index.html#sobre">Sobre</a>
+       </nav>
+      </header>
+
+<main class="conteudoPrincipal">
+
+    <section class="apresentacao">
+            <span class="etiqueta">Canal de manifestações</span>
+            <h1>Envie sua crítica</h1>
+            <p> Sua opinião é importante para identificarmos problemas, corrigirmos falhas e melhorarmos o ambiente de trabalho. </p>
+    </section>
+
+    <section class="cartaoFormulario">
+        <div class="tituloFormulario">
+        <div class="iconeFormulario">✎</div>
+        <div> <h2>Conte o que pode ser melhorado</h2> <p> Preencha os campos abaixo com o máximo de clareza possível.</p> </div>
+        </div>
+
+    <form id="formCritica">
+
+        <div class="grupoCampo">
+            <label for="setor"> Setor relacionado à crítica </label>
+            <select id="setor" required>
+            <option value="">Selecione um setor</option>
+            <option value="atendimento">Atendimento</option>
+            <option value="administrativo">Administrativo</option>
+            <option value="financeiro">Financeiro</option>
+            <option value="recursos Humanos">Recursos Humanos</option>
+            <option value="tecnologia">Tecnologia</option>
+            <option value="estoque">Estoque</option>
+            <option value="loja">Loja</option>
+            <option value="outro">Outro</option>
+        </div>
+    </select>
+
+        <div class="grupoCampo"> <label for="assunto"> Assunto da crítica</label>
+
+            <input
+            type="text"
+            id="assunto"
+            maxlength="80"
+            placeholder="Ex.: Falta de organização no estoque"
+            required>
+        </div>
+
+        <div class="grupoCampo">
+        <label for="descricao"> Descreva sua crítica </label>
+        <textarea
+                        id="descricao"
+                        maxlength="700"
+                        placeholder="Explique o que aconteceu e por que essa situação precisa ser melhorada..."
+                        required
+                        oninput="contadorDescricao()"
+                >
+        </textarea>
+
+            <div class="contador"> <span id="contadorDescricao">0</span>/700</div>
+        </div>
+
+        <div class="grupoCampo"> <label for="sugestao"> Você possui alguma sugestão? <span class="opcional">(opcional)</span> </label>
+
+            <textarea
+                id="sugestao"
+                maxlength="400"
+                placeholder="Descreva uma possível solução ou melhoria..."
+                oninput="contadorSugestao()";
+            ></textarea>
+
+        <div class="contador"> 
+            <span id="contadorSugestao">0</span>/400</div>
+        </div>
+
+        <label class="opcaoAnonima"> <input type="checkbox" id="anonimo"> <span> Quero enviar esta crítica de forma anônima </span> </label>
+
+        <div class="grupoCampo" id="campoNome"> <label for="nome"> Seu nome <span class="opcional">(opcional)</span> </label>
+
+        <input
+            type="text"
+            id="nome"
+            placeholder="Digite seu nome">
+        </div>
+
+        <div class="aviso"> <strong>Importante:</strong> utilize este espaço de maneira responsável, apresentando informações verdadeiras e respeitosas. </div>
+
+        <div class="btns"> <a href="index.html" class="btnVoltar"> Cancelar </a>
+        <button type="button" class="linkDestaque" onclick="criarJson()"> <span> Enviar crítica </span> </button>
+        </div>
+
+    </form>
+
+    <div class="mensagem-sucesso escondido" id="mensagem-sucesso">
+        <div class="iconeSucesso">✓</div>
+        <h2>Crítica enviada!</h2>
+        <p> Sua manifestação foi registrada. Guarde o protocolo: </p>
+        <strong id="numeroProtocolo"></strong>
+        <a href="index.html"> Voltar para o início </a>
+    </div>
+
+    </section>
+
+</main>
+
+<footer> <p>© 2026 Lobios </p> <span>Canal interno de manifestações</span> </footer>
+
+<script src="javaScript/critica.js"></script>
+<script src="javaScript/script.js"></script>
+
+</body>
+</html>

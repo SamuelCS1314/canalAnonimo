@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Enviar Denúncia - Lobios</title>
+    <link rel="icon" type="image/png" href="css/images/icon.jpg">
+    <link rel="stylesheet" href="css/denuncia.css">
+</head>
+
+<body>
+
+    <header class="cabecalho"> 
+        <div class="headerLogo">
+        <a class="logoBlack" href="index.html"><img src="css/images/logo.png" alt=""></a>      
+        </div>
+     
+       <nav class="menu"> 
+           <a href="index.html"> Início    </a>
+           <a href="index.html#manifestacao"> Manifestações  </a>
+           <a href="index.html#sobre">Sobre</a>
+        </nav>
+      </header>
+
+
+    <main class="conteudoPrincipal">
+
+        <section class="apresentacao">
+            <span class="etiqueta">Canal confidencial</span>
+
+            <h1>Faça uma denúncia</h1>
+
+            <p>
+                Utilize este espaço para relatar condutas inadequadas,
+                irregularidades ou situações que possam prejudicar funcionários,
+                clientes ou a empresa.
+            </p>
+        </section>
+
+        <section class="cartaoFormulario">
+
+            <div class="tituloFormulario">
+                <div class="iconeFormulario">!</div>
+
+                <div>
+                    <h2>Relate o ocorrido</h2>
+
+                    <p>
+                        Forneça informações claras para auxiliar na análise.
+                    </p>
+                </div>
+            </div>
+
+            <form id="formDenuncia">
+
+                <div class="grupoCampo">
+                    <label for="tipoDenuncia">
+                        Tipo de denúncia
+                    </label>
+
+                    <select id="tipoDenuncia" required>
+                        <option value="">Selecione uma opção</option>
+                        <option value="assédio">Assédio</option>
+                        <option value="discriminação">Discriminação</option>
+                        <option value="fraude">Fraude</option>
+                        <option value="desvio de conduta">
+                            Desvio de conduta
+                        </option>
+                        <option value="descumprimento de normas">
+                            Descumprimento de normas
+                        </option>
+                        <option value="problema de segurança">
+                            Problema de segurança
+                        </option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="setor">
+                        Setor onde ocorreu
+                    </label>
+
+                    <select id="setor" required>
+                        <option value="">Selecione um setor</option>
+                        <option value="atendimento">Atendimento</option>
+                        <option value="administrativo">Administrativo</option>
+                        <option value="financeiro">Financeiro</option>
+                        <option value="recursos humanos">Recursos Humanos</option>
+                        <option value="tecnologia">Tecnologia</option>
+                        <option value="estoque">Estoque</option>
+                        <option value="loja">Loja</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+
+                <div class="linhaCampos">
+
+                    <div class="grupoCampo">
+                        <label for="dataOcorrido">
+                            Data aproximada
+                        </label>
+
+                        <input type="date" id="dataOcorrido">
+                    </div>
+
+                    <div class="grupoCampo">
+                        <label for="local">
+                            Local
+                        </label>
+
+                        <input
+                            type="text"
+                            id="local"
+                            placeholder="Ex.: Loja ou escritório"
+                        >
+                    </div>
+
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="envolvidos">
+                        Pessoas envolvidas
+                        <span class="opcional">(opcional)</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="envolvidos"
+                        placeholder="Informe nomes, cargos ou características"
+                    >
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="descricao">
+                        Descrição da denúncia
+                    </label>
+
+                    <textarea
+                        id="descricao"
+                        maxlength="800"
+                        placeholder="Descreva o que aconteceu, quando ocorreu e quem estava presente..."
+                        required
+                        oninput="contadorDescricao()"
+                    >
+                </textarea>
+
+                    <div class="contador">
+                        <span id="contadorDescricao">0</span>/800
+                    </div>
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="testemunhas">
+                        Existem testemunhas?
+                        <span class="opcional">(opcional)</span>
+                    </label>
+
+                    <textarea
+                        id="testemunhas"
+                        maxlength="400"
+                        placeholder="Informe nomes ou outras informações relevantes..."
+                        oninput="contadorTestemunhas()"
+                    ></textarea>
+
+                    <div class="contador">
+                        <span id="contadorTestemunhas">0</span>/400
+                    </div>
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="evidencia">
+                        Anexar evidência
+                        <span class="opcional">(opcional)</span>
+                    </label>
+
+                    <input
+                        type="file"
+                        id="evidencia"
+                        accept=".jpg,.jpeg,.png,.pdf"
+                    >
+
+                    <small class="ajudaCampo">
+                        Formatos aceitos: JPG, PNG ou PDF.
+                    </small>
+
+                    <span id="nomeArquivo"></span>
+                </div>
+
+                <label class="opcaoAnonima">
+                    <input type="checkbox" id="anonimo">
+
+                    <span>
+                        Quero fazer esta denúncia de forma anônima
+                    </span>
+                </label>
+
+                <div class="dadosContato" id="dadosContato">
+
+                    <div class="grupoCampo">
+                        <label for="nome">
+                            Seu nome
+                            <span class="opcional">(opcional)</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nome"
+                            placeholder="Digite seu nome"
+                        >
+                    </div>
+
+                    <div class="grupoCampo">
+                        <label for="email">
+                            E-mail para contato
+                            <span class="opcional">(opcional)</span>
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="nome@email.com"
+                        >
+                    </div>
+
+                </div>
+
+                <label class="confirmacao">
+                    <input type="checkbox" id="confirmacao" required>
+
+                    <span>
+                        Confirmo que as informações fornecidas são verdadeiras
+                        conforme o meu conhecimento.
+                    </span>
+                </label>
+
+                <div class="aviso">
+                    <strong>Atenção:</strong>
+
+                    forneça apenas informações relacionadas ao ocorrido.
+                    Evite incluir dados pessoais desnecessários.
+                </div>
+
+                <div class="botoes">
+                    <a href="index.html" class="btnVoltar">
+                        Cancelar
+                    </a>
+
+                    <button type="submit" class="linkDestaque">
+                       <span>  Enviar denúncia </span>
+                    </button>
+                </div>
+
+            </form>
+
+            <div class="msmEscondido" id="msgSucesso">
+                <div class="iconeSucesso">✓</div>
+
+                <h2>Denúncia registrada!</h2>
+
+                <p>
+                    Guarde o número abaixo para acompanhar sua denúncia:
+                </p>
+
+                <strong id="numeroProtocolo"></strong>
+
+                <a href="index.html">
+                    Voltar para o início
+                </a>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Lobios</p>
+        <span>Canal interno e confidencial</span>
+    </footer>
+
+    <script src="javaScript/denuncia.js"></script>
+    <script src="javaScript/script.js"></script>
+</body>
+</html>

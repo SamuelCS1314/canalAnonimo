@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> Lobios </title>
+    <link rel="icon" type="image/png" href="css/images/icon.jpg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="cabecalho"> 
+     <div class="headerLogo">
+     <a class="logoBlack" href="index.html"><img src="css/images/logo.png" alt=""></a>      
+     </div>
+  
+    <nav class="menu"> 
+        <a href="index.html"> Início    </a>
+        <a href="#manifestacao"> Manifestações  </a>
+        <a href="#sobre">Sobre</a>
+    </nav>
+   </header> 
+
+    <main>
+
+        <section class="apresentacao">
+            <div class="conteudoApresentacao">
+              
+
+                <h1>
+                    Sua voz ajuda a construir uma empresa melhor.
+                </h1>
+
+                <p>
+                    Este espaço foi criado para que funcionários da Lobios
+                    possam registrar reclamações, elogios, críticas ou
+                    denúncias de maneira simples e segura.
+                </p>
+
+                <a href="#manifestacao" class="btnPrincipal">
+                   <span> Registrar manifestação </span>
+                </a>
+            </div>
+
+            <div class="painelSeguranca">
+                <div class="iconeSeguranca">✓</div>
+
+                <h2>Canal seguro e confidencial</h2>
+
+                <p>
+                    Sua manifestação será encaminhada para análise da equipe
+                    responsável.
+                </p>
+
+                <ul>
+                    <li>Atendimento confidencial</li>
+                    <li>Registro rápido e organizado</li>
+                    <li>Acompanhamento por protocolo</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="manifestacao" id="manifestacao">
+            <div class="tituloSecao">
+                <span> <strong>Escolha uma opção</strong></span>
+
+                <h2>Como podemos ajudar?</h2>
+
+                <p>
+                   <strong> Selecione o tipo de manifestação que deseja registrar. </strong>
+                </p>
+            </div>
+
+            <div class="opcoes">
+                <a class="reclamacao" href="reclamacao.html">
+                <button
+                    type="button"
+                    class="cartaoOpcao"
+                    data-tipo="Reclamação"
+>
+                    <span class="iconeOpcao">!</span>
+                    <strong>Reclamação</strong>
+                    <small>
+                        Informe um problema ou situação que precisa ser resolvida.
+                    </small>
+                </button>
+                </a>
+               
+
+                <a class="critica" href="critica.html">
+                <button
+                    type="button"
+                    class="cartaoOpcao"
+                    data-tipo="Crítica"
+                >
+                    <span class="iconeOpcao">✎</span>
+                    <strong>Crítica</strong>
+                    <small>
+                        Compartilhe sua opinião e ajude a melhorar nossos processos.
+                    </small>
+                </button>
+                </a>
+
+                <a class="denuncia" href="denuncia.html">
+                <button
+                    type="button"
+                    class="cartaoOpcao"
+                    data-tipo="Denúncia"
+                >
+                    <span class="iconeOpcao">⚠</span>
+                    <strong>Denúncia</strong>
+                    <small>
+                        Relate uma conduta inadequada ou situação irregular.
+                    </small>
+                </button>
+                </a>
+            </div>
+
+            <div class="areaContinuar" id="areaContinuar">
+                <p>
+                    Você selecionou:
+                    <strong id="tipoSelecionado"></strong>
+                </p>
+
+                <button type="button" id="btnContinuar">
+                    Continuar
+                </button>
+            </div>
+        </section>
+
+        <section class="sobre" id="sobre">
+            <div>
+                <span>Nosso compromisso</span>
+
+                <h2>Toda manifestação é importante</h2>
+            </div>
+
+            <p>
+                A  Lobios  valoriza o diálogo, o respeito e a
+                transparência. As informações enviadas serão utilizadas para
+                identificar melhorias e proporcionar um ambiente profissional
+                mais seguro e acolhedor.
+            </p>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="rodapeLogo">
+            <span class="logoSimbolo">+</span>
+
+            <span class="logoTexto">
+             <strong>Lobios</strong>
+            </span>
+        </div>
+
+        <p>Canal interno de manifestações</p>
+
+        <span>© 2026 Lobios</span>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

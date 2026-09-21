@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
+    <title>Enviar Reclamação - Lobios</title>
+    <link rel="icon" type="image/png" href="css/images/icon.jpg">
+    <link rel="stylesheet" href="css/reclamacao.css">
+</head>
+
+<body>
+
+    <header class="cabecalho"> 
+        <div class="headerLogo">
+        <a class="logoBlack" href="index.html"><img src="css/images/logo.png" alt=""></a>      
+        </div>
+     
+       <nav class="menu"> 
+           <a href="index.html"> Início    </a>
+           <a href="index.html#manifestacao"> Manifestações</a>
+           <a href="index.html#sobre">Sobre</a>
+       </nav>
+      </header>
+    <main class="conteudoPrincipal">
+
+        <section class="apresentacao">
+
+            <span class="etiqueta">Atendimento e resolução</span>
+
+            <h1>Registre sua reclamação</h1>
+
+            <p>
+                Informe um problema ocorrido na empresa para que a equipe
+                responsável possa analisar a situação e buscar uma solução.
+            </p>
+
+        </section>
+
+        <section class="cartaoFormulario">
+
+            <div class="tituloFormulario">
+
+                <div class="iconeFormulario">!</div>
+
+                <div>
+                    <h2>Qual problema aconteceu?</h2>
+
+                    <p>
+                        Conte o ocorrido e informe como podemos ajudar.
+                    </p>
+                </div>
+
+            </div>
+
+            <form id="formReclamacao">
+
+                <div class="etapaFormulario">
+                    <span>1</span>
+
+                    <div>
+                        <strong>Identificação do problema</strong>
+                        <small>Informe onde e quando aconteceu.</small>
+                    </div>
+                </div>
+
+                <div class="linhaCampos">
+
+                    <div class="grupoCampo">
+                        <label for="categoria">Categoria</label>
+
+                        <select id="categoria" required>
+                            <option value="">Selecione</option>
+                            <option value="atendimento">
+                                Problema no atendimento
+                            </option>
+                            <option value="sistema">
+                                Falha no sistema
+                            </option>
+                            <option value="pagamento">
+                                Pagamento ou cobrança
+                            </option>
+                            <option value="produto">
+                                Produto ou estoque
+                            </option>
+                            <option value="ambiente">
+                                Ambiente de trabalho
+                            </option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+
+                    <div class="grupoCampo">
+                        <label for="setor">Setor responsável</label>
+
+                        <select id="setor" required>
+                            <option value="">Selecione</option>
+                            <option value="atendimento">Atendimento</option>
+                            <option value="administrativo">Administrativo</option>
+                            <option value="financeiro">Financeiro</option>
+                            <option value="rh">Recursos Humanos</option>
+                            <option value="tecnologia">Tecnologia</option>
+                            <option value="estoque">Estoque</option>
+                            <option value="loja">Loja</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="linhaCampos">
+
+                    <div class="grupoCampo">
+                        <label for="dataOcorrido">
+                            Data do ocorrido
+                        </label>
+
+                        <input type="date" id="dataOcorrido" onchange="Teste()">
+                    </div>
+
+                    <div class="grupoCampo">
+                        <label for="urgencia">
+                            Nível de urgência
+                        </label>
+
+                        <select id="urgencia" required>
+                            <option value="">Selecione</option>
+                            <option value="baixa">Baixa</option>
+                            <option value="media">Média</option>
+                            <option value="alta">Alta</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="etapaFormulario">
+                    <span>2</span>
+
+                    <div>
+                        <strong>Detalhes da reclamação</strong>
+                        <small>Explique claramente o problema.</small>
+                    </div>
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="assunto">
+                        Resuma sua reclamação
+                    </label>
+
+                    <input
+                        type="text"
+                        id="assunto"
+                        maxlength="80"
+                        placeholder="Ex.: Sistema indisponível durante o atendimento"
+                        required
+                    >
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="descricao">
+                        O que aconteceu?
+                    </label>
+
+                    <textarea
+                        id="descricao"
+                        maxlength="800"
+                        placeholder="Descreva o problema, as pessoas envolvidas e como ele afetou seu trabalho..."
+                        required
+                        oninput="contadorDescricao()"
+                    ></textarea>
+
+                    <div class="contador">
+                        <span id="contadorDescricao">0</span>/800
+                    </div>
+                </div>
+
+                <fieldset class="tentativaSolucao">
+
+                    <legend>Você já tentou resolver esse problema?</legend>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="tentou-resolver"
+                            value="Sim"
+                        >
+                        Sim
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="tentou-resolver"
+                            value="Não"
+                        >
+                        Não
+                    </label>
+
+                </fieldset>
+
+                <div class="grupoCampo">
+                    <label for="solucaoEsperada">
+                        Qual solução você espera?
+                    </label>
+
+                    <textarea 
+                        id="solucao" 
+                        maxlength="400" 
+                        placeholder="Explique o que poderia ser feito para resolver o problema..." 
+                        oninput="contadorSolucao()"></textarea>
+
+                    <div class="contador">
+                        <span id="contadorSolucao">0</span>/400
+                    </div>
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="comprovante">
+                        Anexar comprovante
+                        <span class="opcional">(opcional)</span>
+                    </label>
+
+                    <input
+                        type="file"
+                        id="comprovante"
+                        accept=".jpg,.jpeg,.png,.pdf"
+                    >
+
+                    <small class="ajudaCampo">
+                        Formatos permitidos: JPG, PNG ou PDF.
+                    </small>
+                </div>
+
+                <label class="opcaoAnonima">
+
+                    <input type="checkbox" id="anonimo">
+
+                    <span>
+                        Quero enviar esta reclamação de forma anônima
+                    </span>
+
+                </label>
+
+                <div class="grupoCampo" id="campoNome">
+
+                    <label for="nome">
+                        Seu nome
+                        <span class="opcional">(opcional)</span>
+                    </label>
+
+                    <input type="text" id="nome" placeholder="Digite seu nome" >
+
+                </div>
+
+                <div class="aviso">
+
+                    <strong>Importante:</strong>
+
+                    forneça informações claras para facilitar a análise
+                    e a solução do problema.
+
+                </div>
+
+                <div class="btns">
+
+                    <a href="index.html" class="btnVoltar">
+                        Cancelar
+                    </a>
+
+                    <button type="submit" class="linkDestaque">
+                        <span>Enviar reclamação </span>
+                    </button>
+
+                </div>
+
+            </form>
+
+            <div
+                class="msgSucesso"
+                id="msgSucesso"
+            >
+
+                <div class="iconeSucesso">✓</div>
+
+                <h2>Reclamação registrada!</h2>
+
+                <p>
+                    Guarde o protocolo para acompanhar o atendimento:
+                </p>
+
+                <strong id="numeroProtocolo"></strong>
+
+                <a href="index.html">
+                    Voltar para o início
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Lobios</p>
+        <span>Canal interno de manifestações</span>
+    </footer>
+
+    <script src="javaScript/reclamacao.js"></script>
+    <script src="javaScript/script.js"></script>
+</body>
+</html>

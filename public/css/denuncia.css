@@ -1,0 +1,550 @@
+/* Configurações gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+
+    color: #302638;
+    background-color: #f5f2f7;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Cabeçalho */
+.cabecalho {
+    min-height: 84px;
+    padding: 18px 7%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: white;
+    box-shadow: 0 2px 12px rgba(68, 31, 92, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: #46205f;
+    text-decoration: none;
+}
+
+.logoSimbolo {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    background-color: #65a844;
+    border-radius: 12px;
+
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.logoTexto {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.logoTexto strong {
+    color: #743b8f;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+nav a {
+    color: #33283c;
+
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #f0f0f0;
+}
+
+.linkDestaque {
+    padding: 14px 24px;
+
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+
+    color: white;
+    background-color: #82338bc4;
+    border-radius: 8px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    transition: transform 0.4s;
+}
+
+/* Cria a metade superior */
+.linkDestaque::before {
+    content: "";
+
+    width: 100%;
+    height: 50%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+
+    background-color: rgba(131, 68, 131, 1);
+    transition: transform 0.4s;
+}
+
+/* Cria a metade inferior */
+.linkDestaque::after {
+    content: "";
+
+    width: 100%;
+    height: 50%;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    
+    background-color: rgba(131, 68, 131, 1);
+    transition: transform 0.4s;
+}
+
+/* Mantém o texto na frente */
+.linkDestaque span {
+    position: relative;
+    z-index: 1;
+}
+
+/* Animação quando o mouse entra */
+.linkDestaque:hover {
+    transform: translateY(-2px);
+}
+
+/* Metade superior vai para a direita */
+.linkDestaque:hover::before {
+    transform: translateX(100%);
+}
+
+/* Metade inferior vai para a esquerda */
+.linkDestaque:hover::after {
+    transform: translateX(-100%);
+}
+
+/* Apresentação */
+.conteudoPrincipal {
+    padding-bottom: 70px;
+}
+
+.apresentacao {
+    padding: 55px 20px 110px;
+
+    color: white;
+    background: linear-gradient(135deg, #44205c, #783c91);
+
+    text-align: center;
+}
+
+.etiqueta {
+    display: inline-block;
+    margin-bottom: 14px;
+    padding: 7px 13px;
+
+    color: #e0f4d5;
+    background-color: rgba(241, 153, 244, 0.2);
+    border: 1px solid rgba(229, 7, 240, 0.35);
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.apresentacao h1 {
+    margin-bottom: 12px;
+    font-size: 40px;
+}
+
+.apresentacao p {
+    max-width: 670px;
+    margin: auto;
+
+    color: #ece4f0;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Cartão */
+.cartaoFormulario {
+    width: calc(100% - 40px);
+    max-width: 760px;
+
+    margin: -65px auto 0;
+    padding: 35px;
+
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 12px 35px rgba(59, 27, 77, 0.15);
+}
+
+.tituloFormulario {
+    margin-bottom: 30px;
+
+    display: flex;
+    align-items: center;
+    gap: 17px;
+}
+
+.iconeFormulario {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+
+    color: white;
+    background-color: #743b8f;
+    border-radius: 12px;
+
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.tituloFormulario h2 {
+    margin-bottom: 5px;
+
+    color: #54266d;
+    font-size: 24px;
+}
+
+.tituloFormulario p {
+    color: #746b79;
+    font-size: 14px;
+}
+
+/* Formulário */
+#formDenuncia {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+}
+
+.grupoCampo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.linhaCampos,
+.dadosContato {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+label {
+    color: #403647;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.opcional {
+    color: #8c838f;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+
+    color: #302638;
+    background-color: white;
+    border: 1px solid #c9c1cd;
+    border-radius: 8px;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+
+    outline: none;
+    transition: 0.3s;
+}
+
+textarea {
+    min-height: 125px;
+    resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #743b8f;
+    box-shadow: 0 0 0 3px rgba(116, 59, 143, 0.12);
+}
+
+input[type="file"] {
+    padding: 9px;
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+    margin-right: 12px;
+    padding: 9px 13px;
+
+    color: white;
+    background-color: #743b8f;
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+.contador {
+    color: #918896;
+    font-size: 12px;
+    text-align: right;
+}
+
+.ajudaCampo,
+#nomeArquivo {
+    color: #8c838f;
+    font-size: 12px;
+}
+
+/* Opções */
+.opcaoAnonima,
+.confirmacao {
+    padding: 15px;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.opcaoAnonima {
+    background-color: #f4eef7;
+    border: 1px solid #ded0e5;
+}
+
+.confirmacao {
+    background-color: #f6f6f6;
+    border: 1px solid #ddd8df;
+}
+
+.opcaoAnonima input,
+.confirmacao input {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+
+    accent-color: #8f5caa;
+}
+
+/* Aviso */
+.aviso {
+    padding: 14px;
+
+    color: #594e5e;
+    background-color: #f7e9f4;
+    border-left: 4px solid #b887bc;
+    border-radius: 6px;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Botões */
+.btns {
+    margin-top: 5px;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+}
+
+.btnVoltar,
+.btnEnviar {
+    padding: 12px 22px;
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btnVoltar {
+    color: #5b4e62;
+    background-color: transparent;
+    border: 1px solid #bdb5c1;
+}
+
+.btnVoltar:hover {
+    color: #743b8f;
+    border-color: #743b8f;
+}
+
+.btnEnviar {
+    color: white;
+    background-color: #65a844;
+    border: none;
+}
+
+.btnEnviar:hover {
+    background-color: #4f8b33;
+}
+
+/* Mensagem de sucesso */
+.escondido {
+    display: none;
+}
+
+.mensagemSucesso {
+    padding: 35px 15px;
+    text-align: center;
+}
+
+.iconeSucesso {
+    width: 62px;
+    height: 62px;
+    margin: 0 auto 18px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    background-color: #65a844;
+    border-radius: 50%;
+
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.mensagemSucesso h2 {
+    margin-bottom: 10px;
+    color: #54266d;
+}
+
+.mensagemSucesso p {
+    margin-bottom: 12px;
+    color: #6e6473;
+}
+
+#numeroProtocolo {
+    display: block;
+    margin-bottom: 25px;
+
+    color: #743b8f;
+    font-size: 25px;
+}
+
+.mensagemSucesso a {
+    display: inline-block;
+    padding: 12px 22px;
+
+    color: white;
+    background-color: #743b8f;
+    border-radius: 8px;
+
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Rodapé */
+footer {
+    padding: 25px 7%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: #ded4e3;
+    background-color: #311640;
+
+    font-size: 13px;
+}
+
+/* Celulares */
+@media (max-width: 700px) {
+    .cabecalho {
+        padding: 15px 5%;
+    }
+
+    .logoTexto {
+        font-size: 17px;
+    }
+
+    nav a:not(.linkDestaque) {
+        display: none;
+    }
+
+    nav .linkDestaque {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .apresentacao h1 {
+        font-size: 33px;
+    }
+
+    .cartaoFormulario {
+        padding: 25px 20px;
+    }
+
+    .tituloFormulario {
+        align-items: flex-start;
+    }
+
+    .linhaCampos,
+    .dadosContato {
+        grid-template-columns: 1fr;
+    }
+
+    .btns {
+        flex-direction: column-reverse;
+    }
+
+    .btnVoltar,
+    .btnEnviar {
+        width: 100%;
+        text-align: center;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+}
