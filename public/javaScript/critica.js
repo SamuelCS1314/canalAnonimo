@@ -6,7 +6,7 @@ function contadorSugestao() {
 
 function criarJson(){
     const date = new Date();
-    const data = date.toLocalDateString("pt-br");
+    const data = date.toLocaleDateString("pt-br");
     
    const formCritica = {
       setor :    document.getElementById('setor').value,
