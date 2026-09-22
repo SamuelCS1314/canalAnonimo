@@ -22,12 +22,12 @@ function criarJson(){
     const jsonString = JSON.stringify(formCritica, null, 2);
 
     const blob = new Blob([jsonString], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
+   
+    const formData = new FormData();
+    formData.append('formCritica', blob, 'dados.bin');
 
-    link.href = url;
-    link.download = `formCritica${data}.json`; link.click();
-
-    URL.revokeObjectURL(url);
-    console.log('Download do JSON iniciado com sucesso!');
+    fetch('api/upload',{
+        method: 'POST',
+        body: formData
+    });
 }
