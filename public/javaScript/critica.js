@@ -8,7 +8,7 @@ function criarJson(){
     const date = new Date();
     const data = date.toLocaleDateString("pt-br");
     
-   const formCritica = {
+   const formularioCritica = {
       setor :    document.getElementById('setor').value,
       data:      data,
       assunto :  document.getElementById('assunto').value,
@@ -16,18 +16,15 @@ function criarJson(){
       sugestao:  document.getElementById('sugestao').value, 
       nome:      document.getElementById('nome').value
     };
-    
-    console.log(formCritica);
 
-    const jsonString = JSON.stringify(formCritica, null, 2);
-
-    const blob = new Blob([jsonString], { type: 'application/json' });
-   
-    const formData = new FormData();
-    formData.append('formCritica', blob, 'dados.bin');
-
-    fetch('api/upload',{
+    fetch('/api/uploads', {
         method: 'POST',
-        body: formData
-    });
-}
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formularioCritica)
+    })
+    .then(resposta => resposta.json())
+    .then(dados => console.log('Resposta API: ',dados))
+    .catch(err => console.error(err));
+};
