@@ -4,8 +4,7 @@
 // GET
 // POST
 // PUT / PATCH
-// DELEETE
-
+// DELETE
 
 // JSON - JavaScript Object Notation
 import express from "express";
@@ -18,7 +17,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename); 
 const app = express();
 const PORT = 3000;
-const db = require('./db');
+import db from './db.js';
 
 
 app.use(express.json())
@@ -29,13 +28,18 @@ app.get('/', (req, res) => {
 });
 
 
-app.post('/api/uploads', async (req, res) => {
-    const formCritica = req.body;
-    console.log('Json Recebido ', formCritica);
-    const query = 'INSERT INTO critica (nome, data, assunto, descricao, sugestao, setor) VALUES ($nome, $data, $assunto, $descricao, $sugestao, $setor)';
-    await db.query(query, [nome, data, assunto, descricao, sugestao, setor]);
+app.post('/api/uploads/criticas', async (req, res) => {
+    try{
+        const  { nome, data, assunto, descricao, sugestao, setor } = req.body;
+        console.log('Json Recebido ');
+        const query = 'INSERT INTO critica (setor, data, assunto, descricao, sugestao, nome) VALUES (?, ?, ?, ?, ?, ?)';
+        await db.query(query, [nome, data, assunto, descricao, sugestao, setor]);
 
-    res.status(201).json({ mensagem: 'recebido com sucesso!',});
+    res.status(201).json({ mensagem: 'recebido com sucesso!',})
+}    catch(error){
+    console.error('Erro no servidor: ', error);
+    res.status(500).json({ erro: 'Erro ao guardar crítica'});
+}
 });
 
 app.listen(PORT, () => console.log(`O servidor está rodando na porta localhost:${PORT} `));

@@ -1,7 +1,14 @@
-const { Pool } = require('pg');
+import mysql from 'mysql2/promise';
 
-const db = new Pool ({
+const db = mysql.createPool({
     host: 'localhost',
     port: 3306,
-    database: canalAnonimo,
+    user: 'root', 
+    database: 'canalAnonimo',
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 });
+
+
+export default db;
