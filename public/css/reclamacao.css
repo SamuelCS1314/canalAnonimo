@@ -1,42 +1,8 @@
-/* Configurações gerais */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    min-height: 100vh;
-
-    color: #33283c;
-    background-color: #f6f3f8;
-
-    font-family: Arial, Helvetica, sans-serif;
-}
-
 button,
 input,
 select,
 textarea {
     font-family: inherit;
-}
-
-/* Cabeçalho */
-.cabecalho {
-    min-height: 95px;
-    padding: 15px 7%;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 30px;
-
-    background-color: white;
-    box-shadow: 0 2px 15px rgba(67, 30, 87, 0.1);
 }
 
 .logoBlack {
@@ -112,7 +78,7 @@ textarea {
     bottom: 0;
     left: 0;
     z-index: 0;
-    
+
     background-color: rgba(131, 68, 131, 1);
     transition: transform 0.4s;
 }
@@ -151,11 +117,9 @@ textarea {
 
     color: white;
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             rgba(67, 28, 88, 0.97),
-            rgba(123, 59, 145, 0.94)
-        );
+            rgba(123, 59, 145, 0.94));
 
     text-align: center;
 }
@@ -228,7 +192,7 @@ textarea {
     border-radius: 13px;
 
     font-size: 27px;
-    font-weight: bold;
+   
 }
 
 .tituloFormulario h2 {
@@ -244,84 +208,6 @@ textarea {
 }
 
 /* Formulário */
-#formReclamacao {
-    display: flex;
-    flex-direction: column;
-    gap: 23px;
-}
-
-/* Cabeçalhos das etapas */
-.etapaFormulario {
-    margin-top: 5px;
-    padding: 16px 18px;
-
-    display: flex;
-    align-items: center;
-    gap: 13px;
-
-    background-color:  #f7e9f4;
-    border-left: 5px solid #9d529a;
-    border-radius: 9px;
-}
-
-.etapaFormulario > span {
-    width: 34px;
-    height: 34px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-
-    color: white;
-    background-color:  #be79af;
-    border-radius: 50%;
-
-    font-weight: bold;
-}
-
-.etapaFormulario div {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.etapaFormulario strong {
-    color: #54266d;
-    font-size: 16px;
-}
-
-.etapaFormulario small {
-    color: #7d707f;
-    font-size: 13px;
-}
-
-/* Campos lado a lado */
-.linhaCampos {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 19px;
-}
-
-/* Grupo de campo */
-.grupoCampo {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.grupoCampo label,
-.tentativaSolucao legend {
-    color: #403647;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.opcional {
-    color: #918793;
-    font-size: 12px;
-    font-weight: normal;
-}
 
 /* Entradas */
 input,
@@ -365,106 +251,19 @@ textarea::placeholder {
     text-align: right;
 }
 
-/* Tentativa de solução */
-.tentativaSolucao {
-    padding: 18px;
-
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-
-    background-color: #f8f6f9;
-    border: 1px solid #ddd6e0;
-    border-radius: 9px;
-}
-
-.tentativaSolucao legend {
-    padding: 0 7px;
-}
-
-.tentativaSolucao label {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-
-    color: #514656;
-    font-size: 14px;
-    font-weight: bold;
-
-    cursor: pointer;
-}
-
-.tentativaSolucao input {
-    width: 17px;
-    height: 17px;
-
-    accent-color: #ec8a2c;
-    cursor: pointer;
-}
-
-/* Campo de arquivo */
-input[type="file"] {
-    padding: 9px;
-    cursor: pointer;
-}
-
-input[type="file"]::file-selector-button {
-    margin-right: 12px;
-    padding: 9px 14px;
-
-    color: white;
-    background-color: #783d91;
-    border: none;
-    border-radius: 6px;
-
-    font-weight: bold;
-    cursor: pointer;
-
-    transition: 0.3s;
-}
-
-input[type="file"]::file-selector-button:hover {
-    background-color: #5b2b70;
-}
 
 .ajudaCampo {
     color: #8b818e;
     font-size: 12px;
 }
 
-/* Reclamação anônima */
-.opcaoAnonima {
-    padding: 16px;
-
-    display: flex;
-    align-items: center;
-    gap: 11px;
-
-    color: #483b4e;
-    background-color: #f5eef8;
-    border: 1px solid #dfd1e5;
-    border-radius: 9px;
-
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.opcaoAnonima input {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-
-    accent-color: #783d91;
-}
 
 /* Aviso */
 .aviso {
     padding: 15px;
 
     color: #5f513f;
-    background-color:  #f7e9f4;
+    background-color: #f7e9f4;
     border-left: 4px solid #ec2cdc;
     border-radius: 7px;
 
@@ -505,70 +304,6 @@ input[type="file"]::file-selector-button:hover {
     border-color: #783d91;
 }
 
--------
-
-
-
-/* Mensagem de sucesso */
-.escondido {
-    display: none;
-}
-
-.mensagemSucesso {
-    padding: 45px 20px;
-    text-align: center;
-}
-
-.iconeSucesso {
-    width: 65px;
-    height: 65px;
-    margin: 0 auto 19px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    color: white;
-    background-color: #5da83b;
-    border-radius: 50%;
-
-    font-size: 32px;
-    font-weight: bold;
-}
-
-.mensagemSucesso h2 {
-    margin-bottom: 11px;
-
-    color: #54266d;
-    font-size: 27px;
-}
-
-.mensagemSucesso p {
-    margin-bottom: 12px;
-    color: #726776;
-}
-
-#numeroProtocolo {
-    margin-bottom: 26px;
-
-    display: block;
-
-    color: #ec8a2c;
-    font-size: 25px;
-}
-
-.mensagemSucesso a {
-    padding: 12px 21px;
-
-    display: inline-block;
-
-    color: white;
-    background-color: #783d91;
-    border-radius: 8px;
-
-    font-weight: bold;
-    text-decoration: none;
-}
 
 /* Rodapé */
 footer {

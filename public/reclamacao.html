@@ -4,26 +4,178 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Enviar Reclamação - Lobios</title>
     <link rel="icon" type="image/png" href="css/images/icon.jpg">
-    <link rel="stylesheet" href="css/reclamacao.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Cabeçalhos das etapas */
+        .etapaFormulario {
+            margin-top: 5px;
+            padding: 16px 18px;
+
+            display: flex;
+            align-items: center;
+            gap: 13px;
+
+            background-color: #f7e9f4;
+            border-left: 5px solid #9d529a;
+            border-radius: 9px;
+        }
+
+        .etapaFormulario>span {
+            width: 34px;
+            height: 34px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+
+            color: white;
+            background-color: #be79af;
+            border-radius: 50%;
+
+            font-weight: bold;
+        }
+
+        .etapaFormulario div {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .etapaFormulario strong {
+            color: #54266d;
+            font-size: 16px;
+        }
+
+        .etapaFormulario small {
+            color: #7d707f;
+            font-size: 13px;
+        }
+
+        #formReclamacao {
+            display: flex;
+            flex-direction: column;
+            gap: 23px;
+        }
+
+        /* Tentativa de solução */
+        .tentativaSolucao {
+            padding: 18px;
+
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+
+            background-color: #f8f6f9;
+            border: 1px solid #ddd6e0;
+            border-radius: 9px;
+        }
+
+        .tentativaSolucao legend {
+            padding: 0 7px;
+        }
+
+        .tentativaSolucao label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            color: #514656;
+            font-size: 14px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .tentativaSolucao input {
+            width: 17px;
+            height: 17px;
+
+            accent-color: #ec8a2c;
+            cursor: pointer;
+        }
+
+        /* Mensagem de sucesso */
+        .escondido {
+            display: none;
+        }
+
+        .mensagemSucesso {
+            padding: 45px 20px;
+            text-align: center;
+        }
+
+        .iconeSucesso {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 19px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: white;
+            background-color: #5da83b;
+            border-radius: 50%;
+
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .mensagemSucesso h2 {
+            margin-bottom: 11px;
+
+            color: #54266d;
+            font-size: 27px;
+        }
+
+        .mensagemSucesso p {
+            margin-bottom: 12px;
+            color: #726776;
+        }
+
+        #numeroProtocolo {
+            margin-bottom: 26px;
+
+            display: block;
+
+            color: #ec8a2c;
+            font-size: 25px;
+        }
+
+        .mensagemSucesso a {
+            padding: 12px 21px;
+
+            display: inline-block;
+
+            color: white;
+            background-color: #783d91;
+            border-radius: 8px;
+
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
 
-    <header class="cabecalho"> 
+    <header class="cabecalho">
         <div class="headerLogo">
-        <a class="logoBlack" href="index.html"><img src="css/images/logo.png" alt=""></a>      
+            <a class="logoBlack" href="index.html"><img src="css/images/logo.png" alt=""></a>
         </div>
-     
-       <nav class="menu"> 
-           <a href="index.html"> Início    </a>
-           <a href="index.html#manifestacao"> Manifestações</a>
-           <a href="index.html#sobre">Sobre</a>
-       </nav>
-      </header>
+
+        <nav class="menu">
+            <a href="index.html"> Início </a>
+            <a href="index.html#manifestacao"> Manifestações</a>
+            <a href="index.html#sobre">Sobre</a>
+        </nav>
+    </header>
     <main class="conteudoPrincipal">
 
         <section class="apresentacao">
@@ -149,13 +301,8 @@
                         Resuma sua reclamação
                     </label>
 
-                    <input
-                        type="text"
-                        id="assunto"
-                        maxlength="80"
-                        placeholder="Ex.: Sistema indisponível durante o atendimento"
-                        required
-                    >
+                    <input type="text" id="assunto" maxlength="80"
+                        placeholder="Ex.: Sistema indisponível durante o atendimento" required>
                 </div>
 
                 <div class="grupoCampo">
@@ -163,13 +310,9 @@
                         O que aconteceu?
                     </label>
 
-                    <textarea
-                        id="descricao"
-                        maxlength="800"
+                    <textarea id="descricao" maxlength="800"
                         placeholder="Descreva o problema, as pessoas envolvidas e como ele afetou seu trabalho..."
-                        required
-                        oninput="contadorDescricao()"
-                    ></textarea>
+                        required oninput="contadorDescricao()"></textarea>
 
                     <div class="contador">
                         <span id="contadorDescricao">0</span>/800
@@ -181,20 +324,12 @@
                     <legend>Você já tentou resolver esse problema?</legend>
 
                     <label>
-                        <input
-                            type="radio"
-                            name="tentou-resolver"
-                            value="Sim"
-                        >
+                        <input type="radio" name="tentou-resolver" value="Sim">
                         Sim
                     </label>
 
                     <label>
-                        <input
-                            type="radio"
-                            name="tentou-resolver"
-                            value="Não"
-                        >
+                        <input type="radio" name="tentou-resolver" value="Não">
                         Não
                     </label>
 
@@ -205,10 +340,8 @@
                         Qual solução você espera?
                     </label>
 
-                    <textarea 
-                        id="solucao" 
-                        maxlength="400" 
-                        placeholder="Explique o que poderia ser feito para resolver o problema..." 
+                    <textarea id="solucao" maxlength="400"
+                        placeholder="Explique o que poderia ser feito para resolver o problema..."
                         oninput="contadorSolucao()"></textarea>
 
                     <div class="contador">
@@ -222,11 +355,7 @@
                         <span class="opcional">(opcional)</span>
                     </label>
 
-                    <input
-                        type="file"
-                        id="comprovante"
-                        accept=".jpg,.jpeg,.png,.pdf"
-                    >
+                    <input type="file" id="comprovante" accept=".jpg,.jpeg,.png,.pdf">
 
                     <small class="ajudaCampo">
                         Formatos permitidos: JPG, PNG ou PDF.
@@ -250,7 +379,7 @@
                         <span class="opcional">(opcional)</span>
                     </label>
 
-                    <input type="text" id="nome" placeholder="Digite seu nome" >
+                    <input type="text" id="nome" placeholder="Digite seu nome">
 
                 </div>
 
@@ -277,10 +406,7 @@
 
             </form>
 
-            <div
-                class="msgSucesso"
-                id="msgSucesso"
-            >
+            <div class="msgSucesso" id="msgSucesso">
 
                 <div class="iconeSucesso">✓</div>
 
@@ -310,4 +436,5 @@
     <script src="javaScript/reclamacao.js"></script>
     <script src="javaScript/script.js"></script>
 </body>
+
 </html>

@@ -4,29 +4,133 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Enviar Denúncia - Lobios</title>
     <link rel="icon" type="image/png" href="css/images/icon.jpg">
-    <link rel="stylesheet" href="css/denuncia.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        #formDenuncia {
+            display: flex;
+            flex-direction: column;
+            gap: 21px;
+        }
+
+        .linhaCampos,
+        .dadosContato {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        /* Opções */
+        .opcaoAnonima,
+        .confirmacao {
+            padding: 15px;
+
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .opcaoAnonima {
+            background-color: #f4eef7;
+            border: 1px solid #ded0e5;
+        }
+
+        .confirmacao {
+            background-color: #f6f6f6;
+            border: 1px solid #ddd8df;
+        }
+
+        .opcaoAnonima input,
+        .confirmacao input {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+
+            accent-color: #8f5caa;
+        }
+
+        /* Mensagem de sucesso */
+        .escondido {
+            display: none;
+        }
+
+        .mensagemSucesso {
+            padding: 45px 20px;
+            text-align: center;
+        }
+
+        .iconeSucesso {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 19px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: white;
+            background-color: #5da83b;
+            border-radius: 50%;
+
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .mensagemSucesso h2 {
+            margin-bottom: 11px;
+
+            color: #54266d;
+            font-size: 27px;
+        }
+
+        .mensagemSucesso p {
+            margin-bottom: 12px;
+            color: #726776;
+        }
+
+        #numeroProtocolo {
+            margin-bottom: 26px;
+
+            display: block;
+
+            color: #ec8a2c;
+            font-size: 25px;
+        }
+
+        .mensagemSucesso a {
+            padding: 12px 21px;
+
+            display: inline-block;
+
+            color: white;
+            background-color: #783d91;
+            border-radius: 8px;
+
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
 
-    <header class="cabecalho"> 
+    <header class="cabecalho">
         <div class="headerLogo">
-        <a class="logoBlack" href="index.html"><img src="css/images/logo.png" alt=""></a>      
+            <a class="logoBlack" href="index.html"><img src="css/images/logo.png" alt=""></a>
         </div>
-     
-       <nav class="menu"> 
-           <a href="index.html"> Início    </a>
-           <a href="index.html#manifestacao"> Manifestações  </a>
-           <a href="index.html#sobre">Sobre</a>
+
+        <nav class="menu">
+            <a href="index.html"> Início </a>
+            <a href="index.html#manifestacao"> Manifestações </a>
+            <a href="index.html#sobre">Sobre</a>
         </nav>
-      </header>
+    </header>
 
 
     <main class="conteudoPrincipal">
@@ -115,11 +219,7 @@
                             Local
                         </label>
 
-                        <input
-                            type="text"
-                            id="local"
-                            placeholder="Ex.: Loja ou escritório"
-                        >
+                        <input type="text" id="local" placeholder="Ex.: Loja ou escritório">
                     </div>
 
                 </div>
@@ -130,11 +230,7 @@
                         <span class="opcional">(opcional)</span>
                     </label>
 
-                    <input
-                        type="text"
-                        id="envolvidos"
-                        placeholder="Informe nomes, cargos ou características"
-                    >
+                    <input type="text" id="envolvidos" placeholder="Informe nomes, cargos ou características">
                 </div>
 
                 <div class="grupoCampo">
@@ -142,13 +238,9 @@
                         Descrição da denúncia
                     </label>
 
-                    <textarea
-                        id="descricao"
-                        maxlength="800"
-                        placeholder="Descreva o que aconteceu, quando ocorreu e quem estava presente..."
-                        required
-                        oninput="contadorDescricao()"
-                    >
+                    <textarea id="descricao" maxlength="800"
+                        placeholder="Descreva o que aconteceu, quando ocorreu e quem estava presente..." required
+                        oninput="contadorDescricao()">
                 </textarea>
 
                     <div class="contador">
@@ -162,12 +254,9 @@
                         <span class="opcional">(opcional)</span>
                     </label>
 
-                    <textarea
-                        id="testemunhas"
-                        maxlength="400"
+                    <textarea id="testemunhas" maxlength="400"
                         placeholder="Informe nomes ou outras informações relevantes..."
-                        oninput="contadorTestemunhas()"
-                    ></textarea>
+                        oninput="contadorTestemunhas()"></textarea>
 
                     <div class="contador">
                         <span id="contadorTestemunhas">0</span>/400
@@ -180,11 +269,7 @@
                         <span class="opcional">(opcional)</span>
                     </label>
 
-                    <input
-                        type="file"
-                        id="evidencia"
-                        accept=".jpg,.jpeg,.png,.pdf"
-                    >
+                    <input type="file" id="evidencia" accept=".jpg,.jpeg,.png,.pdf">
 
                     <small class="ajudaCampo">
                         Formatos aceitos: JPG, PNG ou PDF.
@@ -209,11 +294,7 @@
                             <span class="opcional">(opcional)</span>
                         </label>
 
-                        <input
-                            type="text"
-                            id="nome"
-                            placeholder="Digite seu nome"
-                        >
+                        <input type="text" id="nome" placeholder="Digite seu nome">
                     </div>
 
                     <div class="grupoCampo">
@@ -222,11 +303,7 @@
                             <span class="opcional">(opcional)</span>
                         </label>
 
-                        <input
-                            type="email"
-                            id="email"
-                            placeholder="nome@email.com"
-                        >
+                        <input type="email" id="email" placeholder="nome@email.com">
                     </div>
 
                 </div>
@@ -247,13 +324,13 @@
                     Evite incluir dados pessoais desnecessários.
                 </div>
 
-                <div class="botoes">
+                <div class="btns">
                     <a href="index.html" class="btnVoltar">
                         Cancelar
                     </a>
 
                     <button type="submit" class="linkDestaque">
-                       <span>  Enviar denúncia </span>
+                        <span> Enviar denúncia </span>
                     </button>
                 </div>
 
@@ -287,4 +364,5 @@
     <script src="javaScript/denuncia.js"></script>
     <script src="javaScript/script.js"></script>
 </body>
+
 </html>
