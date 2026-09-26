@@ -30,13 +30,15 @@ app.get('/', (req, res) => {
 
 app.post('/api/uploads/criticas', async (req, res) => {
     try{
-        const  { nome, data, assunto, descricao, sugestao, setor } = req.body;
-        console.log('Json Recebido ');
+        const  { setor, data, assunto, descricao, sugestao, nome } = req.body;
+        
         const query = 'INSERT INTO critica (setor, data, assunto, descricao, sugestao, nome) VALUES (?, ?, ?, ?, ?, ?)';
-        await db.query(query, [nome, data, assunto, descricao, sugestao, setor]);
-
-    res.status(201).json({ mensagem: 'recebido com sucesso!',})
-}    catch(error){
+        const [resultado] =  await db.query(query, [setor, data, assunto, descricao, sugestao, nome]);
+        
+        const id = resultado.insertId
+        
+        res.status(201).json({ id: id, mensagem:'recebido com sucesso! ',})
+    }catch(error){
     console.error('Erro no servidor: ', error);
     res.status(500).json({ erro: 'Erro ao guardar crítica'});
 }

@@ -34,52 +34,46 @@
             <p> Sua opinião é importante para identificarmos problemas, corrigirmos falhas e melhorarmos o ambiente de trabalho. </p>
     </section>
 
-    <section class="cartaoFormulario">
-        <div class="tituloFormulario">
-        <div class="iconeFormulario">✎</div>
-        <div> <h2>Conte o que pode ser melhorado</h2> <p> Preencha os campos abaixo com o máximo de clareza possível.</p> </div>
+    <section class="cartaoFormulario" id="sectionFormulario">
+       <div class="tituloFormulario">
+            <div class="iconeFormulario">✎</div>
+            <div> <h2>Conte o que pode ser melhorado</h2> <p> Preencha os campos abaixo com o máximo de clareza possível.</p> </div>
         </div>
 
-    <form id="formCritica">
+        <form id="formCritica">
+            <div class="grupoCampo">
+                
+                <label for="setor"> Setor relacionado à crítica </label>
+                <select id="setor" required>
+                    <option value="">Selecione um setor</option>
+                    <option value="atendimento">Atendimento</option>
+                    <option value="administrativo">Administrativo</option>
+                    <option value="financeiro">Financeiro</option>
+                    <option value="recursosHumanos">Recursos Humanos</option>
+                    <option value="tecnologia">Tecnologia</option>
+                    <option value="estoque">Estoque</option>
+                    <option value="loja">Loja</option>
+                    <option value="outro">Outro</option>
+                </select>    
+            
+            </div>
+            
+            <div class="grupoCampo"> <label for="assunto"> Assunto da crítica</label>
+                
+                <input type="text" id="assunto" maxlength="80" placeholder="Ex.: Falta de organização no estoque" required>
+          
+            </div>
 
-        <div class="grupoCampo">
-            <label for="setor"> Setor relacionado à crítica </label>
-            <select id="setor" required>
-            <option value="">Selecione um setor</option>
-            <option value="atendimento">Atendimento</option>
-            <option value="administrativo">Administrativo</option>
-            <option value="financeiro">Financeiro</option>
-            <option value="recursos Humanos">Recursos Humanos</option>
-            <option value="tecnologia">Tecnologia</option>
-            <option value="estoque">Estoque</option>
-            <option value="loja">Loja</option>
-            <option value="outro">Outro</option>
-        </div>
-    </select>
+            <div class="grupoCampo">
+                
+                <label for="descricao"> Descreva sua crítica </label>
+                <textarea d="descricao" maxlength="700" placeholder="Explique o que aconteceu e por que essa situação precisa ser melhorada..." required oninput="contadorDescricao()" >
+                </textarea>
+                <div class="contador">
+                    <span id="contadorDescricao">0</span>/700
+                </div>
 
-        <div class="grupoCampo"> <label for="assunto"> Assunto da crítica</label>
-
-            <input
-            type="text"
-            id="assunto"
-            maxlength="80"
-            placeholder="Ex.: Falta de organização no estoque"
-            required>
-        </div>
-
-        <div class="grupoCampo">
-        <label for="descricao"> Descreva sua crítica </label>
-        <textarea
-                        id="descricao"
-                        maxlength="700"
-                        placeholder="Explique o que aconteceu e por que essa situação precisa ser melhorada..."
-                        required
-                        oninput="contadorDescricao()"
-                >
-        </textarea>
-
-            <div class="contador"> <span id="contadorDescricao">0</span>/700</div>
-        </div>
+            </div>
 
         <div class="grupoCampo"> <label for="sugestao"> Você possui alguma sugestão? <span class="opcional">(opcional)</span> </label>
 
@@ -91,27 +85,42 @@
             ></textarea>
 
         <div class="contador"> 
+           
             <span id="contadorSugestao">0</span>/400</div>
+       
         </div>
 
         <label class="opcaoAnonima"> <input type="checkbox" id="anonimo"> <span> Quero enviar esta crítica de forma anônima </span> </label>
 
-        <div class="grupoCampo" id="campoNome"> <label for="nome"> Seu nome <span class="opcional">(opcional)</span> </label>
-
-        <input
-            type="text"
-            id="nome"
-            placeholder="Digite seu nome">
+        <div class="grupoCampo" id="campoNome"> 
+        
+            <label for="nome"> Seu nome 
+                <span class="opcional">(opcional)</span> 
+            </label>
+            
+            <input type="text" id="nome" placeholder="Digite seu nome">
+        
         </div>
 
-        <div class="aviso"> <strong>Importante:</strong> utilize este espaço de maneira responsável, apresentando informações verdadeiras e respeitosas. </div>
-
-        <div class="btns"> <a href="index.html" class="btnVoltar"> Cancelar </a>
-        <button type="button" class="linkDestaque" onclick="criarJson()"> <span> Enviar crítica </span> </button>
+        <div class="aviso"> 
+            
+            <strong>Importante:</strong> utilize este espaço de maneira responsável, apresentando informações verdadeiras e respeitosas. 
+        
+        </div>
+        
+        <div class="btns">
+          
+            <a href="index.html" class="btnVoltar"> Cancelar </a>
+            <button type="submit" class="linkDestaque" onclick="enviarFormulario()"> 
+                <span> Enviar crítica </span>
+          
+            </button>
         </div>
 
     </form>
+</section>
 
+<section>
     <div class="mensagem-sucesso escondido" id="mensagem-sucesso">
         <div class="iconeSucesso">✓</div>
         <h2>Crítica enviada!</h2>

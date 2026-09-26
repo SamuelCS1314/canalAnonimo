@@ -3,10 +3,10 @@ function contadorSugestao() {
     document.getElementById('contadorSugestao').textContent = sugestao;
 }
 
-function criarJson(){
+function enviarFormulario(){
     const date = new Date();
     console.log(date)
-    const data = date.toLocaleDateString("en");
+    const data = date.toLocaleDateString("pt-br");
     console.log(data)
 
    const formularioCritica = {
@@ -25,10 +25,10 @@ function criarJson(){
         },
         body: JSON.stringify(formularioCritica)
     })
-    .then(resposta => {
-        if(!resposta.ok) throw new Error('Erro na requisição');
-        return resposta.json();
+    .then(resposta => resposta.json())
+    .then(dados => {
+        console.log('ID Retornado: ',dados.id) 
+        alert(`Critica Registrada: Protocolo ${dados.id}`)
     })
-    .then(dados => console.log('Resposta API: ',dados))
     .catch(err => console.error('Erro no fetch ', err));    
 };
