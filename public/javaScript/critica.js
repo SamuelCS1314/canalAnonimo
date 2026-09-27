@@ -32,3 +32,7 @@ function enviarFormulario(){
     })
     .catch(err => console.error('Erro no fetch ', err));    
 };
+
+document.getElementById("formCritica").addEventListener('submit', event => {
+    event.preventDefault();
+})

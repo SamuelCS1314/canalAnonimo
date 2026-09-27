@@ -35,7 +35,8 @@ app.post('/api/uploads/criticas', async (req, res) => {
         const query = 'INSERT INTO critica (setor, data, assunto, descricao, sugestao, nome) VALUES (?, ?, ?, ?, ?, ?)';
         const [resultado] = await db.query(query, [setor, data, assunto, descricao, sugestao, nome]);
 
-        const id = resultado.insertId
+        /* const id = resultado.insertId */
+        const id = resultado.rows.id;
 
         res.status(201).json({ id: id, mensagem: 'recebido com sucesso! ', })
     } catch (error) {
@@ -44,4 +45,4 @@ app.post('/api/uploads/criticas', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => console.log(`O servidor está rodando na porta localhost:${PORT} `));
+app.listen(PORT, () => console.log(`Server Online: localhost:${PORT} `));
