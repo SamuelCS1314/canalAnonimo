@@ -32,11 +32,11 @@ app.post('/api/uploads/criticas', async (req, res) => {
     try {
         const { setor, data, assunto, descricao, sugestao, nome } = req.body;
 
-        const query = 'INSERT INTO critica (setor, data, assunto, descricao, sugestao, nome) VALUES (?, ?, ?, ?, ?, ?)';
-        const [resultado] = await db.query(query, [setor, data, assunto, descricao, sugestao, nome]);
+        const query = 'INSERT INTO critica (setor, data, assunto, descricao, sugestao, nome) VALUES ($1, $2, $3, $4, $5, $6)';
+        const resultado = await db.query(query, [setor, data, assunto, descricao, sugestao, nome]);
 
         /* const id = resultado.insertId */
-        const id = resultado.rows.id;
+        const id = resultado.rows[0].id;
 
         res.status(201).json({ id: id, mensagem: 'recebido com sucesso! ', })
     } catch (error) {
