@@ -8,11 +8,11 @@
 
 // JSON - JavaScript Object Notation
 import express from "express";
-import multer from 'multer';
+/* import multer from 'multer'; */
 import path from 'path';
 import { fileURLToPath } from "url";
 
-const upload = multer({ dest: 'uploads/' });
+/* const upload = multer({ dest: 'uploads/' }); */
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename);
 const app = express();
@@ -32,7 +32,7 @@ app.post('/api/uploads/criticas', async (req, res) => {
     try {
         const { setor, data, assunto, descricao, sugestao, nome } = req.body;
 
-        const query = 'INSERT INTO critica (setor, data, assunto, descricao, sugestao, nome) VALUES ($1, $2, $3, $4, $5, $6)';
+        const query = 'INSERT INTO critica (setor, data, assunto, descricao, sugestao, nome) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id';
         const resultado = await db.query(query, [setor, data, assunto, descricao, sugestao, nome]);
 
         /* const id = resultado.insertId */

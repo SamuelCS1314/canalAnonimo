@@ -19,7 +19,10 @@ const db = new Pool({
     port: 5432,
     database: 'postgres',
     user: 'postgres',
-    password: 'Banco#741%Nfas'
+    password: 'Banco#741%Nfas',
+    ssl: {
+        rejectUnauthorized: false,
+    }
 });
 
 
