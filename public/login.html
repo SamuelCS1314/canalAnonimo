@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login Administrativo - Lobios</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+    <style>
+        body {
+            min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Logo da página */
+        .logoLogin {
+            display: flex;
+            align-items: center;
+        }
+
+        .logoLogin img {
+            width: 190px;
+            display: block;
+        }
+
+        /* Link indicando a página atual */
+        .paginaAtual {
+            color: #743b8f !important;
+        }
+
+        /* Conteúdo do login */
+        .loginPrincipal {
+            min-height: calc(100vh - 154px);
+            padding: 70px 7%;
+
+            display: grid;
+            grid-template-columns: 1fr 460px;
+            align-items: center;
+            gap: 80px;
+
+            background:
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(151, 75, 178, 0.15),
+                    transparent 35%
+                ),
+                #f7f5fa;
+        }
+
+        /* Apresentação à esquerda */
+        .apresentacaoLogin {
+            max-width: 650px;
+        }
+
+        .etiquetaLogin {
+            margin-bottom: 20px;
+            padding: 8px 15px;
+
+            display: inline-block;
+
+            color: #743b8f;
+            background-color: #eee2f3;
+            border: 1px solid #dac4e4;
+            border-radius: 20px;
+
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .apresentacaoLogin h1 {
+            margin-bottom: 20px;
+
+            color: #44205c;
+            font-size: 48px;
+            line-height: 1.1;
+        }
+
+        .apresentacaoLogin > p {
+            max-width: 580px;
+
+            color: #6e6473;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        /* Informações de segurança */
+        .informacoesSeguranca {
+            margin-top: 32px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .itemSeguranca {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+
+            color: #514556;
+            font-size: 14px;
+        }
+
+        .iconeSeguranca {
+            width: 35px;
+            height: 35px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+
+            color: white;
+            background-color: #743b8f;
+            border-radius: 9px;
+
+            font-weight: bold;
+        }
+
+        /* Cartão do login */
+        .cartaoLogin {
+            width: 100%;
+            padding: 38px;
+
+            background-color: white;
+            border: 1px solid #ebe4ee;
+            border-radius: 18px;
+            box-shadow: 0 18px 45px rgba(58, 25, 76, 0.16);
+        }
+
+        .topoLogin {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .iconeAdministrador {
+            width: 62px;
+            height: 62px;
+            margin: 0 auto 18px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: white;
+            background:
+                linear-gradient(135deg, #54266d, #8d3da3);
+            border-radius: 16px;
+
+            font-size: 29px;
+        }
+
+        .topoLogin h2 {
+            margin-bottom: 8px;
+
+            color: #54266d;
+            font-size: 27px;
+        }
+
+        .topoLogin p {
+            color: #827687;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Formulário */
+        #formLoginAdm {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .campoSenha {
+            position: relative;
+        }
+
+        .campoSenha input {
+            padding-right: 52px;
+        }
+
+        .btnMostrarSenha {
+            width: 45px;
+            height: 42px;
+
+            position: absolute;
+            right: 2px;
+            bottom: 2px;
+
+            color: #743b8f;
+            background-color: transparent;
+            border: none;
+
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .btnMostrarSenha:hover {
+            color: #4f1e68;
+        }
+
+        .opcoesLogin {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .lembrarLogin {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            color: #665b6b;
+            font-size: 13px;
+            font-weight: normal;
+
+            cursor: pointer;
+        }
+
+        .lembrarLogin input {
+            width: 17px;
+            height: 17px;
+
+            accent-color: #743b8f;
+        }
+
+        .esqueciSenha {
+            color: #743b8f;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .esqueciSenha:hover {
+            text-decoration: underline;
+        }
+
+        /* Mensagem que poderá ser usada pelo banco */
+        .mensagemErro {
+            padding: 12px 14px;
+
+            display: none;
+
+            color: #9d2834;
+            background-color: #fff0f1;
+            border: 1px solid #f1c5ca;
+            border-left: 4px solid #c83b49;
+            border-radius: 7px;
+
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .mensagemErro.visivel {
+            display: block;
+        }
+
+        /* Botão de entrar */
+        .btnLogin {
+            width: 100%;
+            padding: 14px 24px;
+
+            border: none;
+            cursor: pointer;
+        }
+
+        .btnLogin span {
+            display: block;
+        }
+
+        .avisoLogin {
+            padding-top: 19px;
+
+            color: #918795;
+            border-top: 1px solid #ece6ef;
+
+            font-size: 12px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        /* Mantém o rodapé no fim */
+        footer {
+            margin-top: auto;
+        }
+
+        /* Tablets */
+        @media (max-width: 900px) {
+            .loginPrincipal {
+                grid-template-columns: 1fr;
+                gap: 45px;
+            }
+
+            .apresentacaoLogin {
+                margin: auto;
+                text-align: center;
+            }
+
+            .informacoesSeguranca {
+                max-width: 390px;
+                margin: 30px auto 0;
+
+                align-items: flex-start;
+                text-align: left;
+            }
+
+            .cartaoLogin {
+                max-width: 500px;
+                margin: auto;
+            }
+        }
+
+        /* Celulares */
+        @media (max-width: 650px) {
+            .logoLogin img {
+                width: 140px;
+            }
+
+            .menu {
+                display: flex;
+                position: static;
+
+                width: auto;
+                padding: 0;
+
+                background-color: transparent;
+                box-shadow: none;
+            }
+
+            .menu a:not(.paginaAtual) {
+                display: none;
+            }
+
+            .loginPrincipal {
+                padding: 45px 20px;
+            }
+
+            .apresentacaoLogin h1 {
+                font-size: 35px;
+            }
+
+            .cartaoLogin {
+                padding: 28px 21px;
+            }
+
+            .opcoesLogin {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+
+    <!-- JavaScript exclusivo desta página -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const senha = document.getElementById("senha");
+            const btnMostrarSenha =
+                document.getElementById("btnMostrarSenha");
+
+            btnMostrarSenha.addEventListener("click", function () {
+                if (senha.type === "password") {
+                    senha.type = "text";
+                    btnMostrarSenha.textContent = "◉";
+                    btnMostrarSenha.setAttribute(
+                        "aria-label",
+                        "Ocultar senha"
+                    );
+                } else {
+                    senha.type = "password";
+                    btnMostrarSenha.textContent = "◎";
+                    btnMostrarSenha.setAttribute(
+                        "aria-label",
+                        "Mostrar senha"
+                    );
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <header class="cabecalho">
+
+        <a href="index.html" class="logoLogin">
+            <img
+                src="css/images/logo.png"
+                alt="Logo da Lobios"
+            >
+        </a>
+
+        <nav class="menu">
+            <a href="index.html">Início</a>
+
+            <a href="login.html" class="paginaAtual">
+                Área administrativa
+            </a>
+        </nav>
+
+    </header>
+
+    <main class="loginPrincipal">
+
+        <section class="apresentacaoLogin">
+
+            <span class="etiquetaLogin">
+                Acesso restrito
+            </span>
+
+            <h1>
+                Painel administrativo Lobios
+            </h1>
+
+            <p>
+                Acesse o painel para consultar e organizar as reclamações,
+                denúncias e críticas enviadas pelo canal de manifestações.
+            </p>
+
+            <div class="informacoesSeguranca">
+
+                <div class="itemSeguranca">
+                    <span class="iconeSeguranca">✓</span>
+
+                    <span>
+                        Ambiente exclusivo para administradores
+                    </span>
+                </div>
+
+                <div class="itemSeguranca">
+                    <span class="iconeSeguranca">✓</span>
+
+                    <span>
+                        Informações protegidas e confidenciais
+                    </span>
+                </div>
+
+                <div class="itemSeguranca">
+                    <span class="iconeSeguranca">✓</span>
+
+                    <span>
+                        Acesso às manifestações registradas
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="cartaoLogin">
+
+            <div class="topoLogin">
+
+                <div class="iconeAdministrador">♟</div>
+
+                <h2>Entrar como administrador</h2>
+
+                <p>
+                    Informe suas credenciais para continuar.
+                </p>
+
+            </div>
+
+            <!--
+                O líder poderá adicionar o endereço do backend
+                no atributo action.
+            -->
+            <form
+                id="formLoginAdm"
+                method="post"
+                action=""
+            >
+
+                <div class="grupoCampo">
+
+                    <label for="email">E-mail administrativo</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="administrador@lobios.com"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+                <div class="grupoCampo campoSenha">
+
+                    <label for="senha">Senha</label>
+
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        placeholder="Digite sua senha"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="btnMostrarSenha"
+                        id="btnMostrarSenha"
+                        aria-label="Mostrar senha"
+                    >
+                        ◎
+                    </button>
+
+                </div>
+
+                <div class="opcoesLogin">
+
+                    <label class="lembrarLogin">
+                        <input
+                            type="checkbox"
+                            id="lembrar"
+                            name="lembrar"
+                        >
+
+                        Manter conectado
+                    </label>
+
+                    <a href="#" class="esqueciSenha">
+                        Esqueci minha senha
+                    </a>
+
+                </div>
+
+                <!--
+                    Para exibir pelo JavaScript:
+                    mensagemErro.classList.add("visivel");
+                -->
+                <div
+                    class="mensagemErro"
+                    id="mensagemErro"
+                    role="alert"
+                >
+                    E-mail ou senha incorretos.
+                </div>
+
+                <button
+                    type="submit"
+                    class="linkDestaque btnLogin"
+                >
+                    <span>Entrar no painel</span>
+                </button>
+
+                <p class="avisoLogin">
+                    O acesso a esta área é monitorado e permitido
+                    somente para usuários autorizados.
+                </p>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Lobios</p>
+        <span>Área administrativa</span>
+    </footer>
+
+</body>
+</html>
