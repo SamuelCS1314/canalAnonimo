@@ -4,10 +4,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Login Administrativo - Lobios</title>
 
@@ -389,177 +386,77 @@
 </head>
 
 <body>
-
     <header class="cabecalho">
-
         <a href="index.html" class="logoLogin">
-            <img
-                src="css/images/logo.png"
-                alt="Logo da Lobios"
-            >
+            <img src="css/images/logo.png" alt="Logo da Lobios">
         </a>
 
         <nav class="menu">
             <a href="index.html">Início</a>
-
-            <a href="login.html" class="paginaAtual">
-                Área administrativa
-            </a>
+            <a href="login.html" class="paginaAtual"> Área administrativa </a>
         </nav>
 
     </header>
 
     <main class="loginPrincipal">
-
         <section class="apresentacaoLogin">
-
-            <span class="etiquetaLogin">
-                Acesso restrito
-            </span>
-
-            <h1>
-                Painel administrativo Lobios
-            </h1>
-
-            <p>
-                Acesse o painel para consultar e organizar as reclamações,
-                denúncias e críticas enviadas pelo canal de manifestações.
-            </p>
-
+            <span class="etiquetaLogin"> Acesso restrito</span>
+            <h1>Painel administrativo Lobios</h1>
+            <p> Acesse o painel para consultar e organizar as reclamações, denúncias e críticas enviadas pelo canal de manifestações.</p>
             <div class="informacoesSeguranca">
-
                 <div class="itemSeguranca">
                     <span class="iconeSeguranca">✓</span>
-
-                    <span>
-                        Ambiente exclusivo para administradores
-                    </span>
+                    <span> Ambiente exclusivo para administradores</span>
                 </div>
-
+                
                 <div class="itemSeguranca">
                     <span class="iconeSeguranca">✓</span>
-
-                    <span>
-                        Informações protegidas e confidenciais
-                    </span>
+                    <span> Informações protegidas e confidenciais </span>
                 </div>
-
+                
                 <div class="itemSeguranca">
                     <span class="iconeSeguranca">✓</span>
-
-                    <span>
-                        Acesso às manifestações registradas
-                    </span>
+                    <span> Acesso às manifestações registradas </span>
                 </div>
 
             </div>
 
         </section>
-
         <section class="cartaoLogin">
-
             <div class="topoLogin">
-
                 <div class="iconeAdministrador">♟</div>
-
-                <h2>Entrar como administrador</h2>
-
-                <p>
-                    Informe suas credenciais para continuar.
-                </p>
-
-            </div>
+                    <h2>Entrar como administrador</h2>
+                    <p>Informe suas credenciais para continuar.</p>
+                </div>
 
             <!--
                 O líder poderá adicionar o endereço do backend
                 no atributo action.
             -->
-            <form
-                id="formLoginAdm"
-                method="post"
-                action=""
-            >
-
-                <div class="grupoCampo">
-
-                    <label for="email">E-mail administrativo</label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="administrador@lobios.com"
-                        autocomplete="username"
-                        required
-                    >
-
-                </div>
-
-                <div class="grupoCampo campoSenha">
-
-                    <label for="senha">Senha</label>
-
-                    <input
-                        type="password"
-                        id="senha"
-                        name="senha"
-                        placeholder="Digite sua senha"
-                        autocomplete="current-password"
-                        required
-                    >
-
-                    <button
-                        type="button"
-                        class="btnMostrarSenha"
-                        id="btnMostrarSenha"
-                        aria-label="Mostrar senha"
-                    >
-                        ◎
-                    </button>
-
-                </div>
-
-                <div class="opcoesLogin">
-
-                    <label class="lembrarLogin">
-                        <input
-                            type="checkbox"
-                            id="lembrar"
-                            name="lembrar"
-                        >
-
-                        Manter conectado
-                    </label>
-
-                    <a href="#" class="esqueciSenha">
-                        Esqueci minha senha
-                    </a>
-
-                </div>
-
-                <!--
-                    Para exibir pelo JavaScript:
-                    mensagemErro.classList.add("visivel");
-                -->
-                <div
-                    class="mensagemErro"
-                    id="mensagemErro"
-                    role="alert"
-                >
-                    E-mail ou senha incorretos.
-                </div>
-
-                <button
-                    type="submit"
-                    class="linkDestaque btnLogin"
-                >
+                    <form id="formLoginAdm" method="post" action="">
+                    <div class="grupoCampo">
+                        <label for="email">E-mail administrativo</label>
+                        <input type="email" id="email" name="email" placeholder="administrador@lobios.com" autocomplete="username" required>
+                    </div>
+                    <div class="grupoCampo campoSenha">
+                        <label for="senha">Senha</label>
+                        <input type="password" id="senha" name="senha" placeholder="Digite sua senha" autocomplete="current-password" required>
+                        <button type="button" class="btnMostrarSenha" id="btnMostrarSenha" aria-label="Mostrar senha">◎ </button>
+                    </div>
+                    
+                    <div class="opcoesLogin">
+                        <label class="lembrarLogin">
+                        <inputn type="checkbox" id="lembrar" name="lembrar"> Manter conectado
+                        </label>
+                        <a href="#" class="esqueciSenha">Esqueci minha senha</a>
+                    </div>
+            
+                    <div class="mensagemErro" id="mensagemErro" role="alert"> E-mail ou senha incorretos. </div>
+                    
+                    <button type="submit" class="linkDestaque btnLogin">
                     <span>Entrar no painel</span>
-                </button>
-
-                <p class="avisoLogin">
-                    O acesso a esta área é monitorado e permitido
-                    somente para usuários autorizados.
-                </p>
+                    </button>
+                    <p class="avisoLogin"> O acesso a esta área é monitorado e permitido somente para usuários autorizados.</p>
 
             </form>
 
@@ -567,10 +464,7 @@
 
     </main>
 
-    <footer>
-        <p>© 2026 Lobios</p>
-        <span>Área administrativa</span>
-    </footer>
+    <footer> <p>© 2026 Lobios</p> <span>Área administrativa</span> </footer>
 
 </body>
 </html>
