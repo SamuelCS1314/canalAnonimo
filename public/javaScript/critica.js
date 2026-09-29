@@ -2,6 +2,18 @@ function contadorSugestao() {
     let sugestao = document.getElementById('sugestao').value.length;
     document.getElementById('contadorSugestao').textContent = sugestao;
 }
+    var controle = false
+
+function semNome(){
+    if(controle != true){
+        controle = true
+        document.getElementById("campoNome").style.display = "none"; 
+    } else{
+        controle = false
+        document.getElementById("campoNome").style.display = "flex";
+    };
+
+}
 
 function enviarFormulario(){
     const date = new Date();
@@ -10,7 +22,7 @@ function enviarFormulario(){
     console.log(data)
 
    const formularioCritica = {
-      setor :    document.getElementById('setor').value,
+      setor :    document.getElementById('setor').value, 
       data:      data,
       assunto :  document.getElementById('assunto').value,
       descricao: document.getElementById('descricao').value,
@@ -27,8 +39,9 @@ function enviarFormulario(){
     })
     .then(resposta => resposta.json())
     .then(dados => {
-        console.log('ID Retornado: ',dados.id) 
-        alert(`Critica Registrada: Protocolo ${dados.id}`)
+        document.getElementById("formulario").style.display = "none"
+        document.getElementById("mensagemSucesso").style.display = "block"
+        document.getElementById("mensagem").textContent = `Sua manifestação foi registrada. Guarde o protocolo: ${dados.id}`
     })
     .catch(err => console.error('Erro no fetch ', err));    
 };

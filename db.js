@@ -4,7 +4,7 @@ const db = mysql.createPool({
     host: 'localhost',
     port: 3306,
     user: 'root', 
-    database: 'canalAnonimo',
+    database: 'canalanonimo',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
