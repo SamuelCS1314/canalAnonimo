@@ -16,14 +16,8 @@ function semNome(){
 }
 
 function enviarFormulario(){
-    const date = new Date();
-    console.log(date)
-    const data = date.toLocaleDateString("pt-br");
-    console.log(data)
-
    const formularioCritica = {
-      setor :    document.getElementById('setor').value, 
-      data:      data,
+      setor :    document.getElementById('setor').value,
       assunto :  document.getElementById('assunto').value,
       descricao: document.getElementById('descricao').value,
       sugestao:  document.getElementById('sugestao').value, 
@@ -39,9 +33,11 @@ function enviarFormulario(){
     })
     .then(resposta => resposta.json())
     .then(dados => {
-        document.getElementById("formulario").style.display = "none"
-        document.getElementById("mensagemSucesso").style.display = "block"
-        document.getElementById("mensagem").textContent = `Sua manifestação foi registrada. Guarde o protocolo: ${dados.id}`
+        console.log("Vem tomando: ", dados)
+
+        document.getElementById("formulario").style.display = "none";
+        document.getElementById("mensagemSucesso").style.display = "block";
+        document.getElementById("mensagem").textContent = `Sua manifestação foi registrada. Guarde o protocolo: ${dados.id_critica}`;
     })
     .catch(err => console.error('Erro no fetch ', err));    
 };
