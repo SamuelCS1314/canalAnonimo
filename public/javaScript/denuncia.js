@@ -4,6 +4,16 @@ function contadorTestemunhas() {
     console.log(testemunhas);
 }
 
+function semNome(){
+    if(controle != true){
+        controle = true
+        document.getElementById("campoNome").style.display = "none"; 
+    } else{
+        controle = false
+        document.getElementById("campoNome").style.display = "flex";
+    };
+}
+
 function enviarFormulario() {
     const formDenuncia = {
         tipo_denuncia: document.getElementById("tipoDenuncia").value,

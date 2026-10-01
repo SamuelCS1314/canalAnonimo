@@ -12,7 +12,6 @@ function semNome(){
         controle = false
         document.getElementById("campoNome").style.display = "flex";
     };
-
 }
 
 function enviarFormulario(){

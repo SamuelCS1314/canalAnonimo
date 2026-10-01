@@ -1,4 +1,4 @@
-CREATE DATABASE canalAnonimo
+CREATE DATABASE canal_anonimo
 
 
 CREATE TABLE critica (
@@ -17,16 +17,15 @@ CREATE TABLE denuncia (
     setor VARCHAR(20),	
 	data DATETIME DEFAULT CURRENT_TIMESTAMP,
 	local VARCHAR(30),
-	pessoa_envolvidas (200),
+	pessoa_envolvidas VARCHAR(200),
 	descricao VARCHAR(800),
     testemunhas VARCHAR(400),
-	arquivo LONGBLOB,
 	nome VARCHAR(50),
 	email VARCHAR(50)
 )
 
 CREATE TABLE reclamacao (
-	id INT AUTO_INCRIMENT PRIMARY KEY,
+	id INT AUTO_INCREMENT PRIMARY KEY,
 	categoria VARCHAR(25),
 	setor VARCHAR(20),
 	data DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -35,7 +34,5 @@ CREATE TABLE reclamacao (
 	descricao VARCHAR(800),
 	tentou_resolver VARCHAR(3)    	
 	sugestao VARCHAR(400),	
-	arquivo LONGBLOB,
 	nome VARCHAR(50)
 )
-
