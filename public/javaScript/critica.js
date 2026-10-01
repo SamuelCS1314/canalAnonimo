@@ -33,11 +33,9 @@ function enviarFormulario(){
     })
     .then(resposta => resposta.json())
     .then(dados => {
-        console.log("Vem tomando: ", dados)
-
         document.getElementById("formulario").style.display = "none";
         document.getElementById("mensagemSucesso").style.display = "block";
-        document.getElementById("mensagem").textContent = `Sua manifestação foi registrada. Guarde o protocolo: ${dados.id_critica}`;
+        document.getElementById("mensagem").textContent = `Sua manifestação foi registrada. Guarde o protocolo: ${dados.insertId}`;
     })
     .catch(err => console.error('Erro no fetch ', err));    
 };

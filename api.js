@@ -37,7 +37,7 @@ app.post('/api/uploads/criticas', async (req, res) => {
 
         const id = resultado.insertId
 
-        res.status(201).json({ id_critica: id, mensagem: 'recebido com sucesso! ', })
+        res.status(201).json({ id: id, mensagem: 'recebido com sucesso! ', })
     } catch (error) {
         console.error('Erro no servidor: ', error);
         res.status(500).json({ erro: 'Erro ao guardar crítica' });
