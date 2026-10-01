@@ -382,6 +382,557 @@
                 }
             });
         });
+
+   /* JAVASCRIPT CHAMADAS */     
+    document.addEventListener("DOMContentLoaded", function () {
+        /*
+            A lista começa vazia.
+
+            O líder deverá colocar aqui os dados recebidos
+            do banco de dados.
+        */
+        let manifestacoes = [];
+
+        const corpoTabela =
+            document.getElementById("corpoTabela");
+
+        const pesquisa =
+            document.getElementById("pesquisaChamadas");
+
+        const botoesFiltro =
+            document.querySelectorAll(".btnFiltro");
+
+        const estadoVazio =
+            document.getElementById("estadoVazio");
+
+        const tabela =
+            document.getElementById("tabelaChamadas");
+
+        const textoRegistros =
+            document.getElementById("textoRegistros");
+
+        const paginacao =
+            document.getElementById("paginacao");
+
+        const fundoModal =
+            document.getElementById("fundoModal");
+
+        const fecharModal =
+            document.getElementById("fecharModal");
+
+        const btnFecharDetalhes =
+            document.getElementById("btnFecharDetalhes");
+
+        const itensPorPagina = 6;
+
+        let filtroAtual = "Todas";
+        let paginaAtual = 1;
+
+        /*
+            Remove acentos e transforma o texto em letras minúsculas.
+
+            Isso permite pesquisar "denuncia" e encontrar "Denúncia".
+        */
+        function normalizarTexto(texto) {
+            return texto
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase();
+        }
+
+        /*
+            Filtra os registros de acordo com o tipo escolhido
+            e com o texto pesquisado.
+        */
+        function obterRegistrosFiltrados() {
+            const termo =
+                normalizarTexto(pesquisa.value.trim());
+
+            return manifestacoes.filter(function (item) {
+                const correspondeTipo =
+                    filtroAtual === "Todas" ||
+                    item.tipo === filtroAtual;
+
+                const correspondePesquisa =
+                    normalizarTexto(item.protocolo)
+                        .includes(termo) ||
+                    normalizarTexto(item.assunto)
+                        .includes(termo);
+
+                return correspondeTipo &&
+                    correspondePesquisa;
+            });
+        }
+
+        /*
+            Escolhe a classe CSS da etiqueta de acordo com o tipo.
+        */
+        function classeDoTipo(tipo) {
+            if (tipo === "Denúncia") {
+                return "tipoDenuncia";
+            }
+
+            if (tipo === "Crítica") {
+                return "tipoCritica";
+            }
+
+            return "tipoReclamacao";
+        }
+
+        /*
+            Cria uma linha da tabela.
+        */
+        function criarLinha(item) {
+            const linha =
+                document.createElement("tr");
+
+            linha.innerHTML = `
+                <td>
+                    <strong>${item.protocolo}</strong>
+                </td>
+
+                <td>
+                    <span
+                        class="etiquetaTipo ${classeDoTipo(item.tipo)}"
+                    >
+                        ${item.tipo}
+                    </span>
+                </td>
+
+                <td>${item.assunto}</td>
+
+                <td>${item.data}</td>
+
+                <td
+                    class="${item.anonimo ? "anonimoSim" : ""}"
+                >
+                    ${item.anonimo ? "Sim" : "Não"}
+                </td>
+
+                <td>
+                    <button
+                        type="button"
+                        class="btnDetalhes"
+                        data-protocolo="${item.protocolo}"
+                    >
+                        Ver detalhes
+                    </button>
+                </td>
+            `;
+
+            return linha;
+        }
+
+        /*
+            Atualiza os quatro cartões com as quantidades.
+        */
+        function atualizarResumo() {
+            document.getElementById(
+                "totalTodas"
+            ).textContent = manifestacoes.length;
+
+            document.getElementById(
+                "totalReclamacoes"
+            ).textContent = manifestacoes.filter(
+                function (item) {
+                    return item.tipo === "Reclamação";
+                }
+            ).length;
+
+            document.getElementById(
+                "totalDenuncias"
+            ).textContent = manifestacoes.filter(
+                function (item) {
+                    return item.tipo === "Denúncia";
+                }
+            ).length;
+
+            document.getElementById(
+                "totalCriticas"
+            ).textContent = manifestacoes.filter(
+                function (item) {
+                    return item.tipo === "Crítica";
+                }
+            ).length;
+        }
+
+        /*
+            Cria os botões da paginação.
+        */
+        function criarPaginacao(totalRegistros) {
+            const totalPaginas =
+                Math.ceil(
+                    totalRegistros / itensPorPagina
+                );
+
+            paginacao.innerHTML = "";
+
+            if (totalPaginas <= 1) {
+                return;
+            }
+
+            const anterior =
+                document.createElement("button");
+
+            anterior.type = "button";
+            anterior.className = "btnPagina";
+            anterior.textContent = "‹";
+            anterior.disabled = paginaAtual === 1;
+
+            anterior.addEventListener(
+                "click",
+                function () {
+                    paginaAtual--;
+                    renderizarTabela();
+                }
+            );
+
+            paginacao.appendChild(anterior);
+
+            for (
+                let pagina = 1;
+                pagina <= totalPaginas;
+                pagina++
+            ) {
+                const botao =
+                    document.createElement("button");
+
+                botao.type = "button";
+
+                botao.className =
+                    "btnPagina" +
+                    (
+                        pagina === paginaAtual
+                            ? " ativa"
+                            : ""
+                    );
+
+                botao.textContent = pagina;
+
+                botao.addEventListener(
+                    "click",
+                    function () {
+                        paginaAtual = pagina;
+                        renderizarTabela();
+                    }
+                );
+
+                paginacao.appendChild(botao);
+            }
+
+            const proximo =
+                document.createElement("button");
+
+            proximo.type = "button";
+            proximo.className = "btnPagina";
+            proximo.textContent = "›";
+
+            proximo.disabled =
+                paginaAtual === totalPaginas;
+
+            proximo.addEventListener(
+                "click",
+                function () {
+                    paginaAtual++;
+                    renderizarTabela();
+                }
+            );
+
+            paginacao.appendChild(proximo);
+        }
+
+        /*
+            Coloca os registros na tabela.
+
+            Se não existir nenhuma manifestação, esconde a tabela
+            e mostra a mensagem de campo vazio.
+        */
+        function renderizarTabela() {
+            const registros =
+                obterRegistrosFiltrados();
+
+            const totalPaginas = Math.max(
+                1,
+                Math.ceil(
+                    registros.length /
+                    itensPorPagina
+                )
+            );
+
+            if (paginaAtual > totalPaginas) {
+                paginaAtual = totalPaginas;
+            }
+
+            const inicio =
+                (paginaAtual - 1) *
+                itensPorPagina;
+
+            const fim =
+                inicio + itensPorPagina;
+
+            const registrosDaPagina =
+                registros.slice(inicio, fim);
+
+            corpoTabela.innerHTML = "";
+
+            registrosDaPagina.forEach(
+                function (item) {
+                    corpoTabela.appendChild(
+                        criarLinha(item)
+                    );
+                }
+            );
+
+            const semRegistros =
+                registros.length === 0;
+
+            tabela.style.display =
+                semRegistros
+                    ? "none"
+                    : "table";
+
+            estadoVazio.style.display =
+                semRegistros
+                    ? "block"
+                    : "none";
+
+            if (semRegistros) {
+                textoRegistros.textContent =
+                    "Nenhum registro encontrado";
+            } else {
+                const primeiro = inicio + 1;
+
+                const ultimo = Math.min(
+                    fim,
+                    registros.length
+                );
+
+                textoRegistros.textContent =
+                    `Mostrando ${primeiro} a ${ultimo} de ` +
+                    `${registros.length} registros`;
+            }
+
+            criarPaginacao(registros.length);
+
+            document
+                .querySelectorAll(".btnDetalhes")
+                .forEach(function (botao) {
+                    botao.addEventListener(
+                        "click",
+                        function () {
+                            abrirDetalhes(
+                                botao.dataset.protocolo
+                            );
+                        }
+                    );
+                });
+        }
+
+        /*
+            Coloca um texto dentro de determinado elemento.
+        */
+        function preencherTexto(id, texto) {
+            document.getElementById(id).textContent =
+                texto || "Não informado";
+        }
+
+        /*
+            Abre a janela com todas as informações da manifestação.
+        */
+        function abrirDetalhes(protocolo) {
+            const item = manifestacoes.find(
+                function (registro) {
+                    return registro.protocolo ===
+                        protocolo;
+                }
+            );
+
+            if (!item) {
+                return;
+            }
+
+            preencherTexto(
+                "modalProtocolo",
+                item.protocolo
+            );
+
+            preencherTexto(
+                "modalTipo",
+                item.tipo
+            );
+
+            preencherTexto(
+                "modalData",
+                item.data
+            );
+
+            preencherTexto(
+                "modalSetor",
+                item.setor
+            );
+
+            preencherTexto(
+                "modalAutor",
+                item.autor
+            );
+
+            preencherTexto(
+                "modalAnonimo",
+                item.anonimo ? "Sim" : "Não"
+            );
+
+            preencherTexto(
+                "modalAssunto",
+                item.assunto
+            );
+
+            preencherTexto(
+                "modalDescricao",
+                item.descricao
+            );
+
+            preencherTexto(
+                "modalComplemento",
+                item.complemento
+            );
+
+            preencherTexto(
+                "modalAnexo",
+                item.anexo
+            );
+
+            fundoModal.classList.add("aberto");
+
+            fundoModal.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+            document.body.style.overflow =
+                "hidden";
+        }
+
+        /*
+            Fecha a janela de detalhes.
+        */
+        function fecharDetalhes() {
+            fundoModal.classList.remove("aberto");
+
+            fundoModal.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            document.body.style.overflow = "";
+        }
+
+        /*
+            Função preparada para o líder enviar os dados do banco.
+
+            Quando o banco retornar as manifestações, basta chamar:
+
+            carregarManifestacoes(dadosDoBanco);
+        */
+        function carregarManifestacoes(dados) {
+            if (!Array.isArray(dados)) {
+                console.error(
+                    "Os dados das manifestações precisam ser uma lista."
+                );
+
+                return;
+            }
+
+            manifestacoes = dados;
+            paginaAtual = 1;
+
+            atualizarResumo();
+            renderizarTabela();
+        }
+
+        /*
+            Deixa a função disponível para a integração com o banco.
+        */
+        window.carregarManifestacoes =
+            carregarManifestacoes;
+
+        /*
+            Funcionamento dos botões de filtro.
+        */
+        botoesFiltro.forEach(function (botao) {
+            botao.addEventListener(
+                "click",
+                function () {
+                    botoesFiltro.forEach(
+                        function (outroBotao) {
+                            outroBotao.classList.remove(
+                                "ativo"
+                            );
+                        }
+                    );
+
+                    botao.classList.add("ativo");
+
+                    filtroAtual =
+                        botao.dataset.tipo;
+
+                    paginaAtual = 1;
+
+                    renderizarTabela();
+                }
+            );
+        });
+
+        /*
+            Atualiza a tabela enquanto o usuário pesquisa.
+        */
+        pesquisa.addEventListener(
+            "input",
+            function () {
+                paginaAtual = 1;
+                renderizarTabela();
+            }
+        );
+
+        fecharModal.addEventListener(
+            "click",
+            fecharDetalhes
+        );
+
+        btnFecharDetalhes.addEventListener(
+            "click",
+            fecharDetalhes
+        );
+
+        /*
+            Fecha a janela quando clicar na parte escura.
+        */
+        fundoModal.addEventListener(
+            "click",
+            function (evento) {
+                if (evento.target === fundoModal) {
+                    fecharDetalhes();
+                }
+            }
+        );
+
+        /*
+            Fecha a janela apertando Esc.
+        */
+        document.addEventListener(
+            "keydown",
+            function (evento) {
+                if (evento.key === "Escape") {
+                    fecharDetalhes();
+                }
+            }
+        );
+
+        /*
+            A página começa sem nenhuma manifestação.
+        */
+        atualizarResumo();
+        renderizarTabela();
+    });
     </script>
 </head>
 
@@ -397,7 +948,7 @@
         </nav>
 
     </header>
-
+<section id="SemLogin">
     <main class="loginPrincipal">
         <section class="apresentacaoLogin">
             <span class="etiquetaLogin"> Acesso restrito</span>
@@ -463,7 +1014,97 @@
         </section>
 
     </main>
+</section>
+<section id="chamadas" style="display: block;">
+    <section class="apresentacaoChamadas">
+        <h1>Gestão de manifestações</h1>
+        <p>Acompanhe, filtre e analise os registros enviados pelo canal.</p>
+    </section>
 
+    <main class="conteudoChamadas">
+        <section class="resumoChamadas" aria-label="Resumo das manifestações">
+            <article class="cartaoResumo">
+                <div class="iconeResumo">▤</div>
+                    <div>
+                        <span>Todas</span>
+                        <strong id="totalTodas">0</strong>
+                    </div>
+            </article>
+            <article class="cartaoResumo">
+                <div class="iconeResumo">!</div>
+                <div>
+                    <span>Reclamações</span>
+                    <strong id="totalReclamacoes">0</strong>
+                </div>
+            </article>
+
+            <article class="cartaoResumo denuncias">
+                <div class="iconeResumo">⚠</div>
+                <div>
+                    <span>Denúncias</span>
+                    <strong id="totalDenuncias">0</strong>
+                </div>
+            </article>
+
+            <article class="cartaoResumo">
+                <div class="iconeResumo">✎</div>
+                <div>
+                    <span>Críticas</span>
+                    <strong id="totalCriticas">0</strong>
+                </div>
+            </article>
+
+        </section>
+
+        <section class="painelRegistros">
+
+            <div class="ferramentasChamadas">
+                <div class="campoPesquisa">
+                    <span>⌕</span>
+                    <input type="search" id="pesquisaChamadas" placeholder="Pesquisar por protocolo ou assunto" aria-label="Pesquisar manifestações">
+                </div>
+
+                <div class="filtrosChamadas" aria-label="Filtrar manifestações">
+                    <button type="button" class="btnFiltro ativo" data-tipo="Todas"> Todas </button>
+                    <button type="button" class="btnFiltro" data-tipo="Reclamação">Reclamações </button>
+                    <button type="button" class="btnFiltro" data-tipo="Denúncia"> Denúncias </button>
+                    <button type="button" class="btnFiltro" data-tipo="Crítica"> Críticas </button>
+                </div>
+            </div>
+
+            <div class="tabelaResponsiva">
+                <table class="tabelaChamadas" id="tabelaChamadas">
+                    <thead>
+                        <tr>
+                            <th>Protocolo</th>
+                            <th>Tipo</th>
+                            <th>Assunto</th>
+                            <th>Data</th>
+                            <th>Anônimo</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="corpoTabela"></tbody>
+                </table>
+            </div>
+
+            <div class="estadoVazio" id="estadoVazio">
+                Nenhuma manifestação corresponde à pesquisa ou ao filtro escolhido.
+            </div>
+
+            <div class="rodapeTabela">
+                <span class="textoRegistros" id="textoRegistros"></span>
+                <div class="paginacao" id="paginacao"></div>
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+</section>
     <footer> <p>© 2026 Lobios</p> <span>Área administrativa</span> </footer>
 
 </body>
