@@ -22,7 +22,7 @@ a {
 }
 
 /* Cabeçalho */
-.cabecalho {
+.cabecalho  {
     min-height: 84px;
     padding: 18px 7%;
 
@@ -32,6 +32,11 @@ a {
 
     background-color: white;
     box-shadow: 0 2px 12px rgba(68, 31, 92, 0.1);
+}
+
+#login {
+    color: #5b2b70;
+    font-weight: bold;
 }
 
 /* Menu principal */
