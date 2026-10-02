@@ -50,7 +50,7 @@ function enviarFormulario() {
         }
         document.getElementById('formulario').style.display = 'none';
         document.getElementById('msgSucesso').style.display = 'block';
-        document.getElementById('numeroProtocolo').textContent = dados.id;
+        document.getElementById('numeroProtocolo').textContent = `REC-${dados.id}`;
     })
     .catch(err => {
         console.error('Erro no fetch ', err);

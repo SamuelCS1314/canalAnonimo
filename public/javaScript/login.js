@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
             email:   document.getElementById('email').value,
             senha:   document.getElementById('senha').value,
             lembrar: document.getElementById('lembrar').checked
-        };
+        }
+        
 
         // Caminho relativo: funciona porque a página é aberta em http://localhost:3100/login.html
         fetch('/api/login', {

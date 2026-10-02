@@ -1,4 +1,4 @@
-CREATE DATABASE canal_anonimo
+CREATE DATABASE canal_anonimo;
 
 CREATE TABLE critica (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -8,7 +8,7 @@ CREATE TABLE critica (
     descricao VARCHAR(700),
     sugestao VARCHAR(400),
     nome VARCHAR(50)
-)
+);
 
 CREATE TABLE denuncia (
 	id INT AUTO_INCREMENT PRIMARY KEY,
@@ -21,7 +21,7 @@ CREATE TABLE denuncia (
     testemunhas VARCHAR(400),
 	nome VARCHAR(50),
 	email VARCHAR(50)
-)
+);
 
 CREATE TABLE reclamacao (
 	id INT AUTO_INCREMENT PRIMARY KEY,
@@ -34,7 +34,7 @@ CREATE TABLE reclamacao (
 	tentou_resolver VARCHAR(3)    	
 	sugestao VARCHAR(400),	
 	nome VARCHAR(50)
-)
+);
 
 CREATE TABLE administrador (
     id INT AUTO_INCREMENT PRIMARY KEY,

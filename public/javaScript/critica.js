@@ -39,9 +39,9 @@ function enviarFormulario() {
             return;
         }
         document.getElementById('formulario').style.display = 'none';
-        document.getElementById('mensagemSucesso').classList.remove('escondido');
+        document.getElementById('mensagemSucesso').style.display = 'block';
         document.getElementById('mensagem').textContent = 'Sua manifestação foi registrada. Guarde o protocolo:';
-        document.getElementById('numeroProtocolo').textContent = dados.id;
+        document.getElementById('numeroProtocolo').textContent = `CRI-${dados.id}`;
     })
     .catch(err => {
         console.error('Erro no fetch ', err);
