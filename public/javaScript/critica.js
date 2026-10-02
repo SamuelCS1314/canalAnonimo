@@ -23,7 +23,7 @@ function enviarFormulario(){
       nome:      document.getElementById('nome').value
     };
 
-    fetch('/api/uploads/criticas', {
+    fetch('/api/uploads/critica', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

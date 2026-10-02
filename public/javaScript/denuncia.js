@@ -1,53 +1,110 @@
 function contadorTestemunhas() {
-    let testemunhas = document.getElementById('testemunhas').value.length;
-    document.getElementById('contadorTestemunhas').textContent = testemunhas
-    console.log(testemunhas);
+    const testemunhas =
+        document.getElementById(
+            "testemunhas"
+        ).value.length;
+
+    document.getElementById(
+        "contadorTestemunhas"
+    ).textContent = testemunhas;
 }
 
-function semNome(){
-    if(controle != true){
-        controle = true
-        document.getElementById("campoNome").style.display = "none"; 
-    } else{
-        controle = false
-        document.getElementById("campoNome").style.display = "flex";
-    };
-}
+function semNome() {
+    const anonimo =
+        document.getElementById("anonimo").checked;
 
-function enviarFormulario() {
-    const formDenuncia = {
-        tipo_denuncia: document.getElementById("tipoDenuncia").value,
-        setor: document.getElementById("setor").value,
-        local: document.getElementById("local").value,
-        pessoa_envolvida: document.getElementById("envolvidos").value,
-        descricao: document.getElementById("descricao").value,
-        testemunhas: document.getElementById("400").value,
-        nome: document.getElementById("nome").value,
-        email: document.getElementById("email").value,
+    const dadosContato =
+        document.getElementById("dadosContato");
+
+    dadosContato.style.display =
+        anonimo ? "none" : "grid";
+
+    if (anonimo) {
+        document.getElementById("nome").value = "";
+        document.getElementById("email").value = "";
     }
+}
 
-    const arquivoDenuncia = getElementById("evidencia");
+async function enviarFormulario(evento) {
+    evento.preventDefault();
 
-    const formAquivo = new FormData();
-    formAquivo.append('arquivoDenuncia', arquivoDenuncia.files[0]);
-    async resposta => await fetch('https://localhost:3000/uploads/denuncias/arquivos', {
-        method: 'POST',
-        body: formAquivo
-    });
-    const dados = resposta.json();
-    console.log(dados.url);
+    const formDenuncia = {
+        tipo_denuncia:
+            document.getElementById(
+                "tipoDenuncia"
+            ).value,
 
-    fetch('api/uploads/denuncia', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formDenuncia)
-    }).then(resposta => resposta.json())
-        .then(dados => {
-            document.getElementById("formulario").style.display = "none";
-            document.getElementById("mensagemSucesso").style.display = "block";
-            document.getElementById("mensagem").textContent = `Sua manifestação foi registrada. Guarde o protocolo: ${dados.insertId}`;
-        })
-        .catch(err => console.error('Erro no fetch ', err));
-};
+        setor:
+            document.getElementById("setor").value,
+
+        local:
+            document.getElementById("local").value,
+
+        pessoa_envolvidas:
+            document.getElementById(
+                "envolvidos"
+            ).value,
+
+        descricao:
+            document.getElementById(
+                "descricao"
+            ).value,
+
+        testemunhas:
+            document.getElementById(
+                "testemunhas"
+            ).value,
+
+        nome:
+            document.getElementById("nome").value,
+
+        email:
+            document.getElementById("email").value
+    };
+
+    try {
+        const resposta = await fetch(
+            "/api/uploads/denuncia",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(formDenuncia)
+            }
+        );
+
+        const dados = await resposta.json();
+
+        if (!resposta.ok) {
+            throw new Error(
+                dados.erro ||
+                "Erro ao enviar denúncia"
+            );
+        }
+
+        document.getElementById(
+            "formDenuncia"
+        ).style.display = "none";
+
+        document.getElementById(
+            "msgSucesso"
+        ).style.display = "block";
+
+        document.getElementById(
+            "numeroProtocolo"
+        ).textContent = "DEN-" + dados.id;
+    } catch (erro) {
+        console.error(erro);
+        alert(erro.message);
+    }
+}
+
+document.getElementById(
+    "formDenuncia"
+).addEventListener(
+    "submit",
+    enviarFormulario
+);

@@ -24,7 +24,7 @@ app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'html', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'html', 'index.html')); /* provavel erro*/
 });
 
 
@@ -77,5 +77,87 @@ app.post('/api/uploads/reclamacao', async (req, res) => {  //UPLOADS RECLAMACAO
         res.status(500).json({ erro: 'Erro ao guardar reclamacao' });
     }
 });
+
+app.get("/api/manifestacoes", async function (req, res) {
+    try {
+        const [criticas] = await db.query(
+            "SELECT * FROM criticas"
+        );
+
+        const [denuncias] = await db.query(
+            "SELECT * FROM denuncia"
+        );
+
+        const [reclamacoes] = await db.query(
+            "SELECT * FROM reclamacao"
+        );
+
+        const manifestacoes = [
+            ...criticas.map(function (item) {
+                return {
+                    protocolo: "CRI-" + item.id,
+                    tipo: "Crítica",
+                    assunto: item.assunto,
+                    data: item.data,
+                    setor: item.setor,
+                    autor: item.nome || "Anônimo",
+                    anonimo: !item.nome,
+                    descricao: item.descricao,
+                    complemento:
+                        item.sugestao || "Não informado",
+                    anexo: "Não informado"
+                };
+            }),
+
+            ...denuncias.map(function (item) {
+                return {
+                    protocolo: "DEN-" + item.id,
+                    tipo: "Denúncia",
+                    assunto: item.tipo_denuncia,
+                    data: item.data,
+                    setor: item.setor,
+                    autor: item.nome || "Anônimo",
+                    anonimo: !item.nome,
+                    descricao: item.descricao,
+                    complemento:
+                        item.testemunhas || "Não informado",
+                    anexo: "Não informado"
+                };
+            }),
+
+            ...reclamacoes.map(function (item) {
+                return {
+                    protocolo: "REC-" + item.id,
+                    tipo: "Reclamação",
+                    assunto: item.resumo_reclamacao,
+                    data: item.data,
+                    setor: item.setor,
+                    autor: item.nome || "Anônimo",
+                    anonimo: !item.nome,
+                    descricao: item.descricao,
+                    complemento:
+                        item.sugestao || "Não informado",
+                    anexo: "Não informado"
+                };
+            })
+        ];
+
+        manifestacoes.sort(function (a, b) {
+            return new Date(b.data) - new Date(a.data);
+        });
+
+        res.status(200).json(manifestacoes);
+    } catch (erro) {
+        console.error(
+            "Erro ao buscar manifestações:",
+            erro
+        );
+
+        res.status(500).json({
+            erro: "Erro ao buscar manifestações"
+        });
+    }
+});
+
 
 app.listen(PORT, () => console.log(`O servidor está rodando na porta localhost:${PORT} `));

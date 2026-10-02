@@ -1,53 +1,106 @@
 function contadorSolucao() {
-    let solucao = document.getElementById('solucao').value.length;
-    document.getElementById('contadorSolucao').textContent = solucao;
-    console.log(solucao);
+    const solucao =
+        document.getElementById("solucao").value.length;
+
+    document.getElementById(
+        "contadorSolucao"
+    ).textContent = solucao;
 }
 
-function semNome(){
-    if(controle != true){
-        controle = true
-        document.getElementById("campoNome").style.display = "none"; 
-    } else{
-        controle = false
-        document.getElementById("campoNome").style.display = "flex";
-    };
-}
+function semNome() {
+    const anonimo =
+        document.getElementById("anonimo").checked;
 
-function enviarFormulario() {
-    const formReclamacao = {
-        categoria: document.getElementById("categoria").value,
-        setor: document.getElementById("setor").value,
-        nivel_urgencia: document.getElementById("urgencia").value,
-        resumo_reclamacao: document.getElementById("assunto").value,
-        descricao: document.getElementById("descricao").value,
-        tentou_resolver: tentouResolver(),
-        solucao: document.getElementById("solucao").value,
-        nome: document.getElementById("nome").value
+    const campoNome =
+        document.getElementById("campoNome");
+
+    campoNome.style.display =
+        anonimo ? "none" : "flex";
+
+    if (anonimo) {
+        document.getElementById("nome").value = "";
     }
+}
 
-    const arquivoReclamacao = getElementById("comprovante");
+async function enviarFormulario(evento) {
+    evento.preventDefault();
 
-    const formAquivo = new FormData();
-    formAquivo.append ('arquivoReclamacao', arquivoReclamacao.files[0]);
-    async resposta => await fetch('https://localhost:3000/uploads/reclamacao/arquivos', {
-        method: 'POST',
-        body: formAquivo
-    });
-    const dados = resposta.json();
-    console.log(dados.url);
-    
-    fetch('api/uploads/reclamacao', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formReclamacao)
-    }).then(resposta => resposta.json())
-        .then(dados => {
-            document.getElementById("formulario").style.display = "none";
-            document.getElementById("mensagemSucesso").style.display = "block";
-            document.getElementById("mensagem").textContent = `Sua manifestação foi registrada. Guarde o protocolo: ${dados.insertId}`;
-        })
-        .catch(err => console.error('Erro no fetch ', err));
-};
+    const tentativaMarcada =
+        document.querySelector(
+            'input[name="tentou-resolver"]:checked'
+        );
+
+    const formReclamacao = {
+        categoria:
+            document.getElementById("categoria").value,
+
+        setor:
+            document.getElementById("setor").value,
+
+        nivel_urgencia:
+            document.getElementById("urgencia").value,
+
+        resumo_reclamacao:
+            document.getElementById("assunto").value,
+
+        descricao:
+            document.getElementById("descricao").value,
+
+        tentou_resolver:
+            tentativaMarcada
+                ? tentativaMarcada.value
+                : "",
+
+        sugestao:
+            document.getElementById("solucao").value,
+
+        nome:
+            document.getElementById("nome").value
+    };
+
+    try {
+        const resposta = await fetch(
+            "/api/uploads/reclamacao",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(formReclamacao)
+            }
+        );
+
+        const dados = await resposta.json();
+
+        if (!resposta.ok) {
+            throw new Error(
+                dados.erro ||
+                "Erro ao enviar reclamação"
+            );
+        }
+
+        document.getElementById(
+            "formReclamacao"
+        ).style.display = "none";
+
+        document.getElementById(
+            "msgSucesso"
+        ).style.display = "block";
+
+        document.getElementById(
+            "numeroProtocolo"
+        ).textContent = "REC-" + dados.id;
+    } catch (erro) {
+        console.error(erro);
+        alert(erro.message);
+    }
+}
+
+document.getElementById(
+    "formReclamacao"
+).addEventListener(
+    "submit",
+    enviarFormulario
+);
