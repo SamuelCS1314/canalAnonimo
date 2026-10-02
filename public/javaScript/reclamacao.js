@@ -1,53 +1,59 @@
 function contadorSolucao() {
     let solucao = document.getElementById('solucao').value.length;
     document.getElementById('contadorSolucao').textContent = solucao;
-    console.log(solucao);
 }
 
-function semNome(){
-    if(controle != true){
-        controle = true
-        document.getElementById("campoNome").style.display = "none"; 
-    } else{
-        controle = false
-        document.getElementById("campoNome").style.display = "flex";
-    };
+// Checkbox "anônimo": esconde o campo de nome.
+// No HTML o checkbox e a div têm o mesmo id (campoNome), por isso os seletores abaixo são específicos.
+function semNome() {
+    const anonimo = document.querySelector('input#campoNome').checked;
+    document.querySelector('div#campoNome').style.display = anonimo ? 'none' : 'block';
+    if (anonimo) document.getElementById('nome').value = '';
 }
+
+function tentouResolver() {
+    const marcado = document.querySelector('input[name="tentou-resolver"]:checked');
+    return marcado ? marcado.value : '';
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('formReclamacao').addEventListener('submit', function (evento) {
+        evento.preventDefault();
+        enviarFormulario();
+    });
+});
 
 function enviarFormulario() {
     const formReclamacao = {
-        categoria: document.getElementById("categoria").value,
-        setor: document.getElementById("setor").value,
-        nivel_urgencia: document.getElementById("urgencia").value,
-        resumo_reclamacao: document.getElementById("assunto").value,
-        descricao: document.getElementById("descricao").value,
-        tentou_resolver: tentouResolver(),
-        solucao: document.getElementById("solucao").value,
-        nome: document.getElementById("nome").value
-    }
+        categoria:         document.getElementById('categoria').value,
+        setor:             document.getElementById('setor').value,
+        nivel_urgencia:    document.getElementById('urgencia').value,
+        resumo_reclamacao: document.getElementById('assunto').value.trim(),
+        descricao:         document.getElementById('descricao').value.trim(),
+        tentou_resolver:   tentouResolver(),
+        sugestao:          document.getElementById('solucao').value.trim(),
+        nome:              document.getElementById('nome').value.trim()
+    };
 
-    const arquivoReclamacao = getElementById("comprovante");
-
-    const formAquivo = new FormData();
-    formAquivo.append ('arquivoReclamacao', arquivoReclamacao.files[0]);
-    async resposta => await fetch('https://localhost:3000/uploads/reclamacao/arquivos', {
-        method: 'POST',
-        body: formAquivo
-    });
-    const dados = resposta.json();
-    console.log(dados.url);
-    
-    fetch('api/uploads/reclamacao', {
+    fetch('/api/uploads/reclamacao', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(formReclamacao)
-    }).then(resposta => resposta.json())
-        .then(dados => {
-            document.getElementById("formulario").style.display = "none";
-            document.getElementById("mensagemSucesso").style.display = "block";
-            document.getElementById("mensagem").textContent = `Sua manifestação foi registrada. Guarde o protocolo: ${dados.insertId}`;
-        })
-        .catch(err => console.error('Erro no fetch ', err));
-};
+    })
+    .then(resposta => resposta.json().then(dados => ({ ok: resposta.ok, dados: dados })))
+    .then(({ ok, dados }) => {
+        if (!ok) {
+            alert(dados.erro || 'Não foi possível enviar. Tente novamente.');
+            return;
+        }
+        document.getElementById('formulario').style.display = 'none';
+        document.getElementById('msgSucesso').style.display = 'block';
+        document.getElementById('numeroProtocolo').textContent = dados.id;
+    })
+    .catch(err => {
+        console.error('Erro no fetch ', err);
+        alert('Erro ao conectar com o servidor.');
+    });
+}
